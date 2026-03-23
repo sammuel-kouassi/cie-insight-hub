@@ -5,6 +5,12 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import Landing from "./pages/Landing.tsx";
 import Dashboard from "./pages/Dashboard.tsx";
+import Participants from "./pages/Participants.tsx";
+import Campagnes from "./pages/Campagnes.tsx";
+import Contacts from "./pages/Contacts.tsx";
+import RendezVous from "./pages/RendezVous.tsx";
+import Gadgets from "./pages/Gadgets.tsx";
+import Statistiques from "./pages/Statistiques.tsx";
 import DashboardLayout from "./layouts/DashboardLayout.tsx";
 import NotFound from "./pages/NotFound.tsx";
 
