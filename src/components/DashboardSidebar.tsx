@@ -21,12 +21,14 @@ import {
   Settings,
   Zap,
   Home,
+  Map,
 } from "lucide-react";
 
 const menuItems = [
   { title: "Tableau de bord", url: "/dashboard", icon: LayoutDashboard },
   { title: "Participants", url: "/dashboard/participants", icon: Users },
   { title: "Campagnes", url: "/dashboard/campagnes", icon: Megaphone },
+  { title: "Cartographie", url: "/dashboard/cartographie", icon: Map },
   { title: "Prises de contact", url: "/dashboard/contacts", icon: Phone },
   { title: "Rendez-vous", url: "/dashboard/rdv", icon: CalendarCheck },
   { title: "Gadgets", url: "/dashboard/gadgets", icon: Gift },
@@ -47,12 +49,12 @@ export function DashboardSidebar() {
       <SidebarContent className="bg-sidebar">
         {/* Logo */}
         <div className="flex items-center gap-2 px-4 py-5 border-b border-sidebar-border">
-          <div className="w-8 h-8 rounded-lg gradient-orange flex items-center justify-center flex-shrink-0">
+          <div className="w-8 h-8 rounded-lg gradient-green-orange flex items-center justify-center flex-shrink-0">
             <Zap className="w-4 h-4 text-sidebar-primary-foreground" />
           </div>
           {!collapsed && (
             <span className="font-bold text-sm text-sidebar-accent-foreground tracking-tight" style={{ fontFamily: 'Outfit' }}>
-              CIE Dashboard
+              GS2E Dashboard
             </span>
           )}
         </div>

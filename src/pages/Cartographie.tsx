@@ -1,0 +1,325 @@
+import { useEffect, useRef, useState } from "react";
+import { motion } from "framer-motion";
+import { Map, MapPin, Info } from "lucide-react";
+import { campaignLocations, campaignRoute, CampaignLocation } from "@/data/mockData";
+import "leaflet/dist/leaflet.css";
+
+const statusConfig = {
+  "Terminée": { color: "#22c55e", label: "Terminée", glow: false },
+  "En cours": { color: "#f97316", label: "En cours", glow: true },
+  "Planifiée": { color: "#9ca3af", label: "Planifiée", glow: false },
+};
+
+const Cartographie = () => {
+  const mapRef = useRef<HTMLDivElement>(null);
+  const mapInstanceRef = useRef<any>(null);
+  const [selected, setSelected] = useState<CampaignLocation | null>(null);
+  const [legendFilter, setLegendFilter] = useState<string | null>(null);
+
+  const filtered = legendFilter
+    ? campaignLocations.filter((c) => c.statut === legendFilter)
+    : campaignLocations;
+
+  useEffect(() => {
+    if (!mapRef.current || mapInstanceRef.current) return;
+
+    const initMap = async () => {
+      const L = await import("leaflet");
+      
+      const map = L.default.map(mapRef.current!, {
+        center: [7.0, -5.5],
+        zoom: 6.5,
+        zoomControl: true,
+        scrollWheelZoom: true,
+      });
+
+      L.default.tileLayer("https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png", {
+        attribution: '© <a href="https://www.openstreetmap.org/copyright">OSM</a> © <a href="https://carto.com/">CARTO</a>',
+        maxZoom: 19,
+      }).addTo(map);
+
+      mapInstanceRef.current = map;
+
+      // Draw route lines
+      const routeCoords = campaignRoute.map((id) => {
+        const loc = campaignLocations.find((c) => c.id === id)!;
+        return [loc.lat, loc.lng] as [number, number];
+      });
+
+      // Animated dashed route
+      L.default.polyline(routeCoords, {
+        color: "hsl(152, 60%, 45%)",
+        weight: 2,
+        opacity: 0.6,
+        dashArray: "8, 12",
+      }).addTo(map);
+
+      // Route direction arrows
+      for (let i = 0; i < routeCoords.length - 1; i++) {
+        const mid: [number, number] = [
+          (routeCoords[i][0] + routeCoords[i + 1][0]) / 2,
+          (routeCoords[i][1] + routeCoords[i + 1][1]) / 2,
+        ];
+        L.default.circleMarker(mid, {
+          radius: 3,
+          color: "hsl(152, 60%, 50%)",
+          fillColor: "hsl(152, 60%, 50%)",
+          fillOpacity: 0.8,
+          weight: 1,
+        }).addTo(map);
+      }
+
+      // Add markers
+      campaignLocations.forEach((loc) => {
+        const cfg = statusConfig[loc.statut];
+        const isBlinking = cfg.glow;
+        
+        const markerHtml = `
+          <div style="
+            width: 20px; height: 20px; 
+            background: ${cfg.color}; 
+            border-radius: 50%; 
+            border: 3px solid white; 
+            box-shadow: 0 0 ${isBlinking ? '12' : '6'}px ${cfg.color};
+            ${isBlinking ? 'animation: blink-map 1.5s ease-in-out infinite;' : ''}
+          "></div>
+          <style>
+            @keyframes blink-map {
+              0%, 100% { opacity: 1; box-shadow: 0 0 12px ${cfg.color}; }
+              50% { opacity: 0.4; box-shadow: 0 0 4px ${cfg.color}; }
+            }
+          </style>
+        `;
+
+        const icon = L.default.divIcon({
+          html: markerHtml,
+          className: "",
+          iconSize: [20, 20],
+          iconAnchor: [10, 10],
+        });
+
+        const marker = L.default.marker([loc.lat, loc.lng], { icon }).addTo(map);
+        
+        marker.bindTooltip(
+          `<div style="font-family: Outfit, sans-serif; font-weight: 600;">${loc.nom}</div>
+           <div style="font-size: 11px; color: #999;">${loc.ville} — ${cfg.label}</div>`,
+          { direction: "top", offset: [0, -14], className: "custom-tooltip" }
+        );
+
+        marker.on("click", () => {
+          setSelected(loc);
+        });
+      });
+
+      // Add custom tooltip styles
+      const style = document.createElement("style");
+      style.textContent = `
+        .custom-tooltip {
+          background: hsl(220, 22%, 14%) !important;
+          border: 1px solid hsl(220, 20%, 22%) !important;
+          color: #fff !important;
+          border-radius: 8px !important;
+          padding: 8px 12px !important;
+          font-size: 13px !important;
+          box-shadow: 0 4px 20px rgba(0,0,0,0.4) !important;
+        }
+        .custom-tooltip::before {
+          border-top-color: hsl(220, 22%, 14%) !important;
+        }
+      `;
+      document.head.appendChild(style);
+    };
+
+    initMap();
+
+    return () => {
+      if (mapInstanceRef.current) {
+        mapInstanceRef.current.remove();
+        mapInstanceRef.current = null;
+      }
+    };
+  }, []);
+
+  return (
+    <div className="space-y-6">
+      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+        <h1 className="text-2xl font-bold text-dashboard-card-foreground" style={{ fontFamily: "Outfit" }}>
+          <Map className="inline w-6 h-6 mr-2 text-primary" />
+          Cartographie des Sensibilisations
+        </h1>
+        <p className="text-sm text-dashboard-card-foreground/50">
+          Traçabilité des campagnes sur la carte de la Côte d'Ivoire
+        </p>
+      </motion.div>
+
+      {/* Legend + Stats */}
+      <div className="grid lg:grid-cols-4 gap-4">
+        {/* Legend */}
+        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="glass-card rounded-xl p-5">
+          <h3 className="text-sm font-semibold text-dashboard-card-foreground mb-4" style={{ fontFamily: "Outfit" }}>
+            Légende
+          </h3>
+          <div className="space-y-3">
+            {Object.entries(statusConfig).map(([status, cfg]) => {
+              const count = campaignLocations.filter((c) => c.statut === status).length;
+              const isActive = legendFilter === status;
+              return (
+                <button
+                  key={status}
+                  onClick={() => setLegendFilter(isActive ? null : status)}
+                  className={`flex items-center gap-3 w-full text-left p-2 rounded-lg transition-all ${
+                    isActive ? "bg-dashboard-card" : "hover:bg-dashboard-card/50"
+                  }`}
+                >
+                  <div
+                    className={`w-4 h-4 rounded-full ${cfg.glow ? "animate-blink" : ""}`}
+                    style={{ background: cfg.color, boxShadow: `0 0 8px ${cfg.color}` }}
+                  />
+                  <div>
+                    <span className="text-sm text-dashboard-card-foreground">{cfg.label}</span>
+                    <span className="text-xs text-dashboard-card-foreground/50 ml-2">({count})</span>
+                  </div>
+                </button>
+              );
+            })}
+          </div>
+
+          <div className="mt-4 pt-4 border-t border-dashboard-border">
+            <div className="flex items-center gap-2 text-xs text-dashboard-card-foreground/50">
+              <div className="w-8 h-0.5 border-t-2 border-dashed" style={{ borderColor: "hsl(152, 60%, 45%)" }} />
+              <span>Route de campagne</span>
+            </div>
+          </div>
+        </motion.div>
+
+        {/* Map */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.1 }}
+          className="lg:col-span-3 glass-card rounded-xl overflow-hidden"
+          style={{ minHeight: 500 }}
+        >
+          <div ref={mapRef} className="w-full h-full" style={{ minHeight: 500 }} />
+        </motion.div>
+      </div>
+
+      {/* Selected campaign detail */}
+      {selected && (
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="glass-card rounded-xl p-5"
+        >
+          <div className="flex items-start justify-between mb-3">
+            <h3 className="text-lg font-semibold text-dashboard-card-foreground flex items-center gap-2" style={{ fontFamily: "Outfit" }}>
+              <Info className="w-5 h-5 text-primary" />
+              {selected.nom}
+            </h3>
+            <button
+              onClick={() => setSelected(null)}
+              className="text-dashboard-card-foreground/50 hover:text-dashboard-card-foreground text-sm"
+            >
+              Fermer ✕
+            </button>
+          </div>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div>
+              <p className="text-xs text-dashboard-card-foreground/50">Ville</p>
+              <p className="text-sm font-medium text-dashboard-card-foreground">{selected.ville}</p>
+            </div>
+            <div>
+              <p className="text-xs text-dashboard-card-foreground/50">Agent</p>
+              <p className="text-sm font-medium text-dashboard-card-foreground">{selected.agent}</p>
+            </div>
+            <div>
+              <p className="text-xs text-dashboard-card-foreground/50">Date</p>
+              <p className="text-sm font-medium text-dashboard-card-foreground">{selected.date}</p>
+            </div>
+            <div>
+              <p className="text-xs text-dashboard-card-foreground/50">Participants</p>
+              <p className="text-sm font-bold text-dashboard-card-foreground">{selected.participants}</p>
+            </div>
+          </div>
+          <div className="mt-3">
+            <span
+              className={`text-xs font-semibold px-2.5 py-1 rounded-full ${
+                selected.statut === "Terminée" ? "bg-success/20 text-success" :
+                selected.statut === "En cours" ? "bg-warning/20 text-warning" :
+                "bg-muted text-muted-foreground"
+              }`}
+            >
+              {selected.statut}
+            </span>
+          </div>
+        </motion.div>
+      )}
+
+      {/* Campaign list table */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.3 }}
+        className="glass-card rounded-xl p-5"
+      >
+        <h3 className="text-sm font-semibold text-dashboard-card-foreground mb-4" style={{ fontFamily: "Outfit" }}>
+          <MapPin className="inline w-4 h-4 mr-2 text-primary" />
+          Itinéraire des Campagnes
+        </h3>
+        <div className="overflow-x-auto">
+          <table className="w-full text-sm">
+            <thead>
+              <tr className="border-b border-dashboard-border text-dashboard-card-foreground/50">
+                <th className="text-left py-3 px-2 font-medium">Ordre</th>
+                <th className="text-left py-3 px-2 font-medium">Campagne</th>
+                <th className="text-left py-3 px-2 font-medium">Ville</th>
+                <th className="text-left py-3 px-2 font-medium">Agent</th>
+                <th className="text-left py-3 px-2 font-medium">Date</th>
+                <th className="text-right py-3 px-2 font-medium">Participants</th>
+                <th className="text-center py-3 px-2 font-medium">Statut</th>
+              </tr>
+            </thead>
+            <tbody>
+              {campaignRoute.map((id, idx) => {
+                const c = campaignLocations.find((loc) => loc.id === id)!;
+                if (legendFilter && c.statut !== legendFilter) return null;
+                const cfg = statusConfig[c.statut];
+                return (
+                  <tr
+                    key={c.id}
+                    className="border-b border-dashboard-border/50 hover:bg-dashboard-card/50 transition-colors cursor-pointer"
+                    onClick={() => setSelected(c)}
+                  >
+                    <td className="py-3 px-2">
+                      <div className="w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold" style={{ background: cfg.color + "33", color: cfg.color }}>
+                        {idx + 1}
+                      </div>
+                    </td>
+                    <td className="py-3 px-2 text-dashboard-card-foreground font-medium">{c.nom}</td>
+                    <td className="py-3 px-2 text-dashboard-card-foreground/70">{c.ville}</td>
+                    <td className="py-3 px-2 text-dashboard-card-foreground/70">{c.agent}</td>
+                    <td className="py-3 px-2 text-dashboard-card-foreground/70">{c.date}</td>
+                    <td className="py-3 px-2 text-right text-dashboard-card-foreground font-semibold">{c.participants}</td>
+                    <td className="py-3 px-2 text-center">
+                      <span
+                        className={`text-xs font-semibold px-2.5 py-1 rounded-full ${
+                          c.statut === "Terminée" ? "bg-success/20 text-success" :
+                          c.statut === "En cours" ? "bg-warning/20 text-warning animate-blink" :
+                          "bg-muted text-muted-foreground"
+                        }`}
+                      >
+                        {c.statut}
+                      </span>
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
+      </motion.div>
+    </div>
+  );
+};
+
+export default Cartographie;

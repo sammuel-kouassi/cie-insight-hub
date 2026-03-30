@@ -15,14 +15,14 @@ const DashboardLayout = () => {
             <div className="flex items-center gap-3">
               <SidebarTrigger className="text-dashboard-card-foreground hover:text-primary" />
               <span className="text-sm font-medium text-dashboard-card-foreground/60">
-                Compagnie Ivoirienne d'Électricité
+                GS2E — Gestion des Sensibilisations
               </span>
             </div>
             <div className="flex items-center gap-2">
               <Button variant="ghost" size="icon" className="text-dashboard-card-foreground/60 hover:text-primary">
                 <Bell className="w-4 h-4" />
               </Button>
-              <div className="w-8 h-8 rounded-full gradient-orange flex items-center justify-center">
+              <div className="w-8 h-8 rounded-full gradient-green-orange flex items-center justify-center">
                 <User className="w-4 h-4 text-primary-foreground" />
               </div>
             </div>

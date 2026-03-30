@@ -14,18 +14,18 @@ export const monthlyParticipants = [
 ];
 
 export const participantsByRegion = [
-  { region: "Abidjan", participants: 3200, fill: "hsl(24, 100%, 50%)" },
-  { region: "Bouaké", participants: 1800, fill: "hsl(32, 100%, 55%)" },
+  { region: "Abidjan", participants: 3200, fill: "hsl(152, 60%, 45%)" },
+  { region: "Bouaké", participants: 1800, fill: "hsl(24, 100%, 50%)" },
   { region: "Yamoussoukro", participants: 1200, fill: "hsl(38, 92%, 50%)" },
-  { region: "San Pedro", participants: 950, fill: "hsl(152, 60%, 45%)" },
+  { region: "San Pedro", participants: 950, fill: "hsl(152, 60%, 35%)" },
   { region: "Korhogo", participants: 780, fill: "hsl(210, 100%, 56%)" },
   { region: "Daloa", participants: 650, fill: "hsl(280, 60%, 55%)" },
 ];
 
 export const participantsByType = [
-  { name: "Particuliers", value: 45, fill: "hsl(24, 100%, 50%)" },
-  { name: "Commerçants", value: 25, fill: "hsl(32, 100%, 55%)" },
-  { name: "Entreprises", value: 15, fill: "hsl(152, 60%, 45%)" },
+  { name: "Particuliers", value: 45, fill: "hsl(152, 60%, 45%)" },
+  { name: "Commerçants", value: 25, fill: "hsl(24, 100%, 50%)" },
+  { name: "Entreprises", value: 15, fill: "hsl(152, 60%, 35%)" },
   { name: "Administrations", value: 10, fill: "hsl(210, 100%, 56%)" },
   { name: "Autres", value: 5, fill: "hsl(220, 10%, 46%)" },
 ];
@@ -108,18 +108,18 @@ export const rdvByStatus = [
 
 // ── Gadgets ──
 export const gadgetsList = [
-  { id: 1, nom: "T-shirt CIE", categorie: "Textile", stock: 450, distribues: 1200, campagne: "Sensibilisation Abobo" },
-  { id: 2, nom: "Casquette CIE", categorie: "Textile", stock: 320, distribues: 890, campagne: "Multiple" },
-  { id: 3, nom: "Stylo CIE", categorie: "Papeterie", stock: 1500, distribues: 3200, campagne: "Multiple" },
+  { id: 1, nom: "T-shirt GS2E", categorie: "Textile", stock: 450, distribues: 1200, campagne: "Sensibilisation Abobo" },
+  { id: 2, nom: "Casquette GS2E", categorie: "Textile", stock: 320, distribues: 890, campagne: "Multiple" },
+  { id: 3, nom: "Stylo GS2E", categorie: "Papeterie", stock: 1500, distribues: 3200, campagne: "Multiple" },
   { id: 4, nom: "Porte-clés", categorie: "Accessoire", stock: 200, distribues: 650, campagne: "Campagne Bouaké" },
-  { id: 5, nom: "Sac CIE", categorie: "Textile", stock: 180, distribues: 420, campagne: "Mission Yopougon" },
+  { id: 5, nom: "Sac GS2E", categorie: "Textile", stock: 180, distribues: 420, campagne: "Mission Yopougon" },
   { id: 6, nom: "Bloc-notes", categorie: "Papeterie", stock: 600, distribues: 1100, campagne: "Multiple" },
 ];
 
 export const gadgetsByCategory = [
-  { name: "Textile", value: 40, fill: "hsl(24, 100%, 50%)" },
-  { name: "Papeterie", value: 35, fill: "hsl(210, 100%, 56%)" },
-  { name: "Accessoire", value: 25, fill: "hsl(152, 60%, 45%)" },
+  { name: "Textile", value: 40, fill: "hsl(152, 60%, 45%)" },
+  { name: "Papeterie", value: 35, fill: "hsl(24, 100%, 50%)" },
+  { name: "Accessoire", value: 25, fill: "hsl(210, 100%, 56%)" },
 ];
 
 // ── Stats page extra data ──
@@ -138,3 +138,32 @@ export const performanceByAgent = [
   { agent: "Coulibaly S.", participants: 750, contacts: 280, conversions: 110 },
   { agent: "Yao F.", participants: 890, contacts: 310, conversions: 130 },
 ];
+
+// ── Cartographie data ──
+export interface CampaignLocation {
+  id: number;
+  nom: string;
+  ville: string;
+  lat: number;
+  lng: number;
+  statut: "Terminée" | "En cours" | "Planifiée";
+  participants: number;
+  agent: string;
+  date: string;
+}
+
+export const campaignLocations: CampaignLocation[] = [
+  { id: 1, nom: "Sensibilisation Abobo", ville: "Abidjan", lat: 5.4164, lng: -4.0167, statut: "Terminée", participants: 145, agent: "Kouamé A.", date: "2025-01-15" },
+  { id: 2, nom: "Campagne Bouaké Centre", ville: "Bouaké", lat: 7.6881, lng: -5.0305, statut: "En cours", participants: 89, agent: "Traoré M.", date: "2025-01-18" },
+  { id: 3, nom: "Mission Yopougon", ville: "Abidjan (Yopougon)", lat: 5.3364, lng: -4.0689, statut: "Terminée", participants: 210, agent: "Bamba K.", date: "2025-01-20" },
+  { id: 4, nom: "Sensibilisation Korhogo", ville: "Korhogo", lat: 9.4580, lng: -5.6295, statut: "Planifiée", participants: 0, agent: "Coulibaly S.", date: "2025-02-05" },
+  { id: 5, nom: "Campagne San Pedro", ville: "San Pedro", lat: 4.7485, lng: -6.6363, statut: "En cours", participants: 132, agent: "Yao F.", date: "2025-01-25" },
+  { id: 6, nom: "Sensibilisation Yamoussoukro", ville: "Yamoussoukro", lat: 6.8276, lng: -5.2893, statut: "Terminée", participants: 95, agent: "Kouamé A.", date: "2025-01-10" },
+  { id: 7, nom: "Campagne Man", ville: "Man", lat: 7.4125, lng: -7.5536, statut: "Planifiée", participants: 0, agent: "Traoré M.", date: "2025-02-12" },
+  { id: 8, nom: "Mission Daloa", ville: "Daloa", lat: 6.8774, lng: -6.4502, statut: "Terminée", participants: 78, agent: "Bamba K.", date: "2025-01-08" },
+  { id: 9, nom: "Sensibilisation Gagnoa", ville: "Gagnoa", lat: 6.1319, lng: -5.9506, statut: "En cours", participants: 56, agent: "Yao F.", date: "2025-01-28" },
+  { id: 10, nom: "Campagne Abengourou", ville: "Abengourou", lat: 6.7297, lng: -3.4964, statut: "Planifiée", participants: 0, agent: "Coulibaly S.", date: "2025-02-15" },
+];
+
+// Route order (the progression of the campaign tour)
+export const campaignRoute: number[] = [8, 6, 1, 3, 2, 9, 5, 7, 4, 10];

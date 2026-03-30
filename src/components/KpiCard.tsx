@@ -16,10 +16,10 @@ const KpiCard = ({ title, value, change, changeType, icon: Icon, index = 0 }: Kp
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: index * 0.1, duration: 0.4 }}
-      className="glass-card rounded-xl p-5 glow-orange hover:border-primary/30 transition-all"
+      className="glass-card rounded-xl p-5 glow-green hover:border-primary/30 transition-all"
     >
       <div className="flex items-start justify-between mb-3">
-        <div className="w-10 h-10 rounded-lg gradient-orange flex items-center justify-center">
+        <div className="w-10 h-10 rounded-lg gradient-green-orange flex items-center justify-center">
           <Icon className="w-5 h-5 text-primary-foreground" />
         </div>
         <span
