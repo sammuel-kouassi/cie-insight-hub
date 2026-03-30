@@ -11,6 +11,7 @@ import Contacts from "./pages/Contacts.tsx";
 import RendezVous from "./pages/RendezVous.tsx";
 import Gadgets from "./pages/Gadgets.tsx";
 import Statistiques from "./pages/Statistiques.tsx";
+import Cartographie from "./pages/Cartographie.tsx";
 import DashboardLayout from "./layouts/DashboardLayout.tsx";
 import NotFound from "./pages/NotFound.tsx";
 
@@ -28,6 +29,7 @@ const App = () => (
             <Route index element={<Dashboard />} />
             <Route path="participants" element={<Participants />} />
             <Route path="campagnes" element={<Campagnes />} />
+            <Route path="cartographie" element={<Cartographie />} />
             <Route path="contacts" element={<Contacts />} />
             <Route path="rdv" element={<RendezVous />} />
             <Route path="gadgets" element={<Gadgets />} />

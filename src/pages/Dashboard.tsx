@@ -62,8 +62,8 @@ const Dashboard = () => {
             <AreaChart data={monthlyParticipants}>
               <defs>
                 <linearGradient id="gradParticipants" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stopColor="hsl(24, 100%, 50%)" stopOpacity={0.4} />
-                  <stop offset="100%" stopColor="hsl(24, 100%, 50%)" stopOpacity={0} />
+                 <stop offset="0%" stopColor="hsl(152, 60%, 45%)" stopOpacity={0.4} />
+                  <stop offset="100%" stopColor="hsl(152, 60%, 45%)" stopOpacity={0} />
                 </linearGradient>
               </defs>
               <CartesianGrid strokeDasharray="3 3" stroke="hsla(220, 20%, 25%, 0.5)" />
@@ -72,7 +72,7 @@ const Dashboard = () => {
               <Tooltip
                 contentStyle={{ background: 'hsl(220, 22%, 14%)', border: '1px solid hsl(220, 20%, 22%)', borderRadius: 8, color: '#fff' }}
               />
-              <Area type="monotone" dataKey="participants" stroke="hsl(24, 100%, 50%)" fill="url(#gradParticipants)" strokeWidth={2} />
+              <Area type="monotone" dataKey="participants" stroke="hsl(152, 60%, 45%)" fill="url(#gradParticipants)" strokeWidth={2} />
               <Area type="monotone" dataKey="campagnes" stroke="hsl(152, 60%, 45%)" fill="transparent" strokeWidth={2} strokeDasharray="5 5" />
               <Legend />
             </AreaChart>
@@ -156,7 +156,7 @@ const Dashboard = () => {
               <XAxis dataKey="jour" tick={{ fill: 'hsl(220, 10%, 55%)', fontSize: 12 }} axisLine={false} />
               <YAxis tick={{ fill: 'hsl(220, 10%, 55%)', fontSize: 12 }} axisLine={false} />
               <Tooltip contentStyle={{ background: 'hsl(220, 22%, 14%)', border: '1px solid hsl(220, 20%, 22%)', borderRadius: 8, color: '#fff' }} />
-              <Bar dataKey="inscriptions" fill="hsl(24, 100%, 50%)" radius={[4, 4, 0, 0]} />
+              <Bar dataKey="inscriptions" fill="hsl(152, 60%, 45%)" radius={[4, 4, 0, 0]} />
               <Bar dataKey="contacts" fill="hsl(210, 100%, 56%)" radius={[4, 4, 0, 0]} />
               <Legend />
             </BarChart>
