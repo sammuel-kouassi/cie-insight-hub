@@ -72,8 +72,8 @@ const Statistiques = () => {
             <AreaChart data={monthlyParticipants}>
               <defs>
                 <linearGradient id="gradStats" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stopColor="hsl(24, 100%, 50%)" stopOpacity={0.3} />
-                  <stop offset="100%" stopColor="hsl(24, 100%, 50%)" stopOpacity={0} />
+                 <stop offset="0%" stopColor="hsl(152, 60%, 45%)" stopOpacity={0.3} />
+                  <stop offset="100%" stopColor="hsl(152, 60%, 45%)" stopOpacity={0} />
                 </linearGradient>
               </defs>
               <CartesianGrid strokeDasharray="3 3" stroke="hsla(220, 20%, 25%, 0.5)" />
