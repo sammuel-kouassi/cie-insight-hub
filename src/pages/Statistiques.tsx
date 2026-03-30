@@ -57,7 +57,7 @@ const Statistiques = () => {
               <XAxis dataKey="agent" tick={{ fill: "hsl(220, 10%, 55%)", fontSize: 11 }} axisLine={false} />
               <YAxis tick={{ fill: "hsl(220, 10%, 55%)", fontSize: 12 }} axisLine={false} />
               <Tooltip contentStyle={{ background: "hsl(220, 22%, 14%)", border: "1px solid hsl(220, 20%, 22%)", borderRadius: 8, color: "#fff" }} />
-              <Bar dataKey="participants" fill="hsl(24, 100%, 50%)" radius={[4, 4, 0, 0]} />
+              <Bar dataKey="participants" fill="hsl(152, 60%, 45%)" radius={[4, 4, 0, 0]} />
               <Bar dataKey="contacts" fill="hsl(210, 100%, 56%)" radius={[4, 4, 0, 0]} />
               <Bar dataKey="conversions" fill="hsl(152, 60%, 45%)" radius={[4, 4, 0, 0]} />
               <Legend />
