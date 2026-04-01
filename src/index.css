@@ -136,9 +136,9 @@
     background-clip: text;
   }
   .glass-card {
-    background: hsla(220, 22%, 12%, 0.7);
-    backdrop-filter: blur(16px);
-    border: 1px solid hsla(220, 20%, 22%, 0.5);
+    background: hsl(var(--dashboard-card));
+    border: 1px solid hsl(var(--dashboard-border));
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
   }
   .glow-green {
     box-shadow: 0 0 30px hsla(152, 60%, 45%, 0.15);
