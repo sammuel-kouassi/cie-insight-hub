@@ -66,11 +66,11 @@ const Dashboard = () => {
                   <stop offset="100%" stopColor="hsl(152, 60%, 45%)" stopOpacity={0} />
                 </linearGradient>
               </defs>
-              <CartesianGrid strokeDasharray="3 3" stroke="hsla(220, 20%, 25%, 0.5)" />
+              <CartesianGrid strokeDasharray="3 3" stroke="hsla(220, 13%, 91%, 0.8)" />
               <XAxis dataKey="month" tick={{ fill: 'hsl(220, 10%, 55%)', fontSize: 12 }} axisLine={false} />
               <YAxis tick={{ fill: 'hsl(220, 10%, 55%)', fontSize: 12 }} axisLine={false} />
               <Tooltip
-                contentStyle={{ background: 'hsl(220, 22%, 14%)', border: '1px solid hsl(220, 20%, 22%)', borderRadius: 8, color: '#fff' }}
+                contentStyle={{ background: '#fff', border: '1px solid hsl(220, 13%, 91%)', borderRadius: 8, color: 'hsl(220, 20%, 14%)' }}
               />
               <Area type="monotone" dataKey="participants" stroke="hsl(152, 60%, 45%)" fill="url(#gradParticipants)" strokeWidth={2} />
               <Area type="monotone" dataKey="campagnes" stroke="hsl(152, 60%, 45%)" fill="transparent" strokeWidth={2} strokeDasharray="5 5" />
@@ -96,7 +96,7 @@ const Dashboard = () => {
                   <Cell key={i} fill={entry.fill} />
                 ))}
               </Pie>
-              <Tooltip contentStyle={{ background: 'hsl(220, 22%, 14%)', border: '1px solid hsl(220, 20%, 22%)', borderRadius: 8, color: '#fff' }} />
+              <Tooltip contentStyle={{ background: '#fff', border: '1px solid hsl(220, 13%, 91%)', borderRadius: 8, color: 'hsl(220, 20%, 14%)' }} />
             </PieChart>
           </ResponsiveContainer>
           <div className="space-y-1.5 mt-2">
@@ -127,10 +127,10 @@ const Dashboard = () => {
           </h3>
           <ResponsiveContainer width="100%" height={260}>
             <BarChart data={participantsByRegion} layout="vertical">
-              <CartesianGrid strokeDasharray="3 3" stroke="hsla(220, 20%, 25%, 0.5)" />
+              <CartesianGrid strokeDasharray="3 3" stroke="hsla(220, 13%, 91%, 0.8)" />
               <XAxis type="number" tick={{ fill: 'hsl(220, 10%, 55%)', fontSize: 12 }} axisLine={false} />
               <YAxis dataKey="region" type="category" tick={{ fill: 'hsl(220, 10%, 55%)', fontSize: 12 }} axisLine={false} width={100} />
-              <Tooltip contentStyle={{ background: 'hsl(220, 22%, 14%)', border: '1px solid hsl(220, 20%, 22%)', borderRadius: 8, color: '#fff' }} />
+              <Tooltip contentStyle={{ background: '#fff', border: '1px solid hsl(220, 13%, 91%)', borderRadius: 8, color: 'hsl(220, 20%, 14%)' }} />
               <Bar dataKey="participants" radius={[0, 6, 6, 0]}>
                 {participantsByRegion.map((entry, i) => (
                   <Cell key={i} fill={entry.fill} />
@@ -152,10 +152,10 @@ const Dashboard = () => {
           </h3>
           <ResponsiveContainer width="100%" height={260}>
             <BarChart data={weeklyActivity}>
-              <CartesianGrid strokeDasharray="3 3" stroke="hsla(220, 20%, 25%, 0.5)" />
+              <CartesianGrid strokeDasharray="3 3" stroke="hsla(220, 13%, 91%, 0.8)" />
               <XAxis dataKey="jour" tick={{ fill: 'hsl(220, 10%, 55%)', fontSize: 12 }} axisLine={false} />
               <YAxis tick={{ fill: 'hsl(220, 10%, 55%)', fontSize: 12 }} axisLine={false} />
-              <Tooltip contentStyle={{ background: 'hsl(220, 22%, 14%)', border: '1px solid hsl(220, 20%, 22%)', borderRadius: 8, color: '#fff' }} />
+              <Tooltip contentStyle={{ background: '#fff', border: '1px solid hsl(220, 13%, 91%)', borderRadius: 8, color: 'hsl(220, 20%, 14%)' }} />
               <Bar dataKey="inscriptions" fill="hsl(152, 60%, 45%)" radius={[4, 4, 0, 0]} />
               <Bar dataKey="contacts" fill="hsl(210, 100%, 56%)" radius={[4, 4, 0, 0]} />
               <Legend />
