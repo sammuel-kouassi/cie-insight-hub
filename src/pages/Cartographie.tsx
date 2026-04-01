@@ -102,7 +102,7 @@ const Cartographie = () => {
         
         marker.bindTooltip(
           `<div style="font-family: Outfit, sans-serif; font-weight: 600;">${loc.nom}</div>
-           <div style="font-size: 11px; color: #999;">${loc.ville} — ${cfg.label}</div>`,
+           <div style="font-size: 11px; color: #888;">${loc.ville} — ${cfg.label}</div>`,
           { direction: "top", offset: [0, -14], className: "custom-tooltip" }
         );
 
