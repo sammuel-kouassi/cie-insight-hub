@@ -32,9 +32,6 @@ const Landing = () => {
       <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-lg border-b">
         <div className="container mx-auto flex items-center justify-between h-16 px-4">
           <div className="flex items-center gap-2">
-            <div className="w-9 h-9 rounded-lg gradient-green-orange flex items-center justify-center">
-              <Zap className="w-5 h-5 text-primary-foreground" />
-            </div>
             <span className="font-bold text-lg tracking-tight" style={{ fontFamily: 'Outfit' }}>
               GS2E <span className="text-gradient-green-orange">Sensibilisation</span>
             </span>
@@ -99,7 +96,7 @@ const Landing = () => {
                 variants={fadeUp}
                 className="text-center"
               >
-                <div className="text-3xl md:text-4xl font-extrabold text-gradient-green-orange" style={{ fontFamily: 'Outfit' }}>
+                <div className="text-3xl md:text-4xl font-extrabold text-primary" style={{ fontFamily: 'Outfit' }}>
                   {stat.value}
                 </div>
                 <div className="text-sm text-muted-foreground mt-1">{stat.label}</div>
@@ -114,7 +111,7 @@ const Landing = () => {
         <div className="container mx-auto px-4">
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0} className="text-center mb-14">
             <h2 className="text-3xl md:text-4xl font-bold mb-3" style={{ fontFamily: 'Outfit' }}>
-              Fonctionnalités <span className="text-gradient-green-orange">Clés</span>
+              Fonctionnalités <span className="text-primary">Clés</span>
             </h2>
             <p className="text-muted-foreground max-w-lg mx-auto">Une solution complète pour la gestion de vos campagnes de sensibilisation</p>
           </motion.div>
