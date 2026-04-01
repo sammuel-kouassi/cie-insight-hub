@@ -96,7 +96,7 @@ const Landing = () => {
                 variants={fadeUp}
                 className="text-center"
               >
-                <div className="text-3xl md:text-4xl font-extrabold text-gradient-green-orange" style={{ fontFamily: 'Outfit' }}>
+                <div className="text-3xl md:text-4xl font-extrabold text-primary" style={{ fontFamily: 'Outfit' }}>
                   {stat.value}
                 </div>
                 <div className="text-sm text-muted-foreground mt-1">{stat.label}</div>
