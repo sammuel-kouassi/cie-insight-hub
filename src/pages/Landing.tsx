@@ -78,7 +78,7 @@ const Landing = () => {
             </p>
             <div className="flex gap-3 flex-wrap">
               <Link to="/dashboard">
-                <Button size="lg" className="gradient-green-orange border-0 text-primary-foreground font-semibold text-base px-8">
+                <Button size="lg" className="font-semibold text-base px-8">
                   Accéder au Dashboard <ArrowRight className="ml-2 w-5 h-5" />
                 </Button>
               </Link>
