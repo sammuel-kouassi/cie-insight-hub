@@ -111,7 +111,7 @@ const Landing = () => {
         <div className="container mx-auto px-4">
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0} className="text-center mb-14">
             <h2 className="text-3xl md:text-4xl font-bold mb-3" style={{ fontFamily: 'Outfit' }}>
-              Fonctionnalités <span className="text-gradient-green-orange">Clés</span>
+              Fonctionnalités <span className="text-primary">Clés</span>
             </h2>
             <p className="text-muted-foreground max-w-lg mx-auto">Une solution complète pour la gestion de vos campagnes de sensibilisation</p>
           </motion.div>
