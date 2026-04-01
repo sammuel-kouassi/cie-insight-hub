@@ -41,7 +41,9 @@ const Landing = () => {
           </div>
           <div className="flex items-center gap-3">
             <Link to="/dashboard">
-              <Button variant="default" size="sm" className="gradient-green-orange border-0 text-primary-foreground">
+              <Button variant="default" size="sm">
+                Tableau de bord <ArrowRight className="ml-1 w-4 h-4" />
+              </Button>
                 Tableau de bord <ArrowRight className="ml-1 w-4 h-4" />
               </Button>
             </Link>
