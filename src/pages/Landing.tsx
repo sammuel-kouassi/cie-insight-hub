@@ -129,7 +129,7 @@ const Landing = () => {
                 variants={fadeUp}
                 className="p-6 rounded-xl bg-card border hover:border-primary/30 hover:shadow-lg hover:shadow-primary/5 transition-all group"
               >
-                <div className="w-12 h-12 rounded-xl gradient-green-orange flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                <div className="w-12 h-12 rounded-xl bg-primary flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
                   <f.icon className="w-6 h-6 text-primary-foreground" />
                 </div>
                 <h3 className="font-semibold text-lg mb-2" style={{ fontFamily: 'Outfit' }}>{f.title}</h3>
