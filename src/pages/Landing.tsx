@@ -67,8 +67,9 @@ const Landing = () => {
               <span className="text-sm font-medium text-primary-foreground/90">Plateforme Digitale GS2E</span>
             </div>
             <h1 className="text-4xl md:text-6xl font-extrabold text-primary-foreground leading-tight mb-6" style={{ fontFamily: 'Outfit' }}>
-              Gestion des Campagnes de{" "}
-              <span className="text-gradient-green-orange">Sensibilisation</span>
+              Gestion des{" "}
+              <span className="text-accent">Campagnes</span> de{" "}
+              <span className="text-primary">Sensibilisation</span>
             </h1>
             <p className="text-lg text-primary-foreground/70 mb-8 max-w-xl">
               Digitalisez vos campagnes terrain, gérez vos participants et suivez vos KPI en temps réel grâce à notre plateforme intégrée.
