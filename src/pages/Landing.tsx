@@ -41,7 +41,7 @@ const Landing = () => {
           </div>
           <div className="flex items-center gap-3">
             <Link to="/dashboard">
-              <Button variant="default" size="sm" className="gradient-green-orange border-0 text-primary-foreground">
+              <Button variant="default" size="sm">
                 Tableau de bord <ArrowRight className="ml-1 w-4 h-4" />
               </Button>
             </Link>
@@ -67,15 +67,16 @@ const Landing = () => {
               <span className="text-sm font-medium text-primary-foreground/90">Plateforme Digitale GS2E</span>
             </div>
             <h1 className="text-4xl md:text-6xl font-extrabold text-primary-foreground leading-tight mb-6" style={{ fontFamily: 'Outfit' }}>
-              Gestion des Campagnes de{" "}
-              <span className="text-gradient-green-orange">Sensibilisation</span>
+              Gestion des{" "}
+              <span className="text-accent">Campagnes</span> de{" "}
+              <span className="text-primary">Sensibilisation</span>
             </h1>
             <p className="text-lg text-primary-foreground/70 mb-8 max-w-xl">
               Digitalisez vos campagnes terrain, gérez vos participants et suivez vos KPI en temps réel grâce à notre plateforme intégrée.
             </p>
             <div className="flex gap-3 flex-wrap">
               <Link to="/dashboard">
-                <Button size="lg" className="gradient-green-orange border-0 text-primary-foreground font-semibold text-base px-8">
+                <Button size="lg" className="font-semibold text-base px-8">
                   Accéder au Dashboard <ArrowRight className="ml-2 w-5 h-5" />
                 </Button>
               </Link>
