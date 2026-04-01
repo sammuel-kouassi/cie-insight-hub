@@ -47,16 +47,25 @@
     --orange-glow: 24 100% 55%;
     --orange-soft: 24 80% 94%;
     --green-glow: 152 60% 50%;
-    --dashboard-bg: 220 25% 7%;
-    --dashboard-card: 220 22% 12%;
-    --dashboard-card-foreground: 220 10% 90%;
-    --dashboard-border: 220 20% 18%;
+    --dashboard-bg: 220 14% 96%;
+    --dashboard-card: 0 0% 100%;
+    --dashboard-card-foreground: 220 20% 14%;
+    --dashboard-border: 220 13% 91%;
     --success: 152 60% 45%;
     --success-foreground: 0 0% 100%;
     --warning: 38 92% 50%;
     --warning-foreground: 0 0% 100%;
     --info: 210 100% 56%;
     --info-foreground: 0 0% 100%;
+
+    --sidebar-background: 220 20% 14%;
+    --sidebar-foreground: 220 10% 75%;
+    --sidebar-primary: 152 60% 45%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 220 20% 20%;
+    --sidebar-accent-foreground: 0 0% 95%;
+    --sidebar-border: 220 20% 22%;
+    --sidebar-ring: 152 60% 45%;
   }
 
   .dark {
@@ -127,9 +136,9 @@
     background-clip: text;
   }
   .glass-card {
-    background: hsla(220, 22%, 12%, 0.7);
-    backdrop-filter: blur(16px);
-    border: 1px solid hsla(220, 20%, 22%, 0.5);
+    background: hsl(var(--dashboard-card));
+    border: 1px solid hsl(var(--dashboard-border));
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
   }
   .glow-green {
     box-shadow: 0 0 30px hsla(152, 60%, 45%, 0.15);

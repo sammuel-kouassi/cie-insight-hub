@@ -48,10 +48,10 @@ const Gadgets = () => {
           <h3 className="text-sm font-semibold text-dashboard-card-foreground mb-4" style={{ fontFamily: "Outfit" }}>Distribution Mensuelle</h3>
           <ResponsiveContainer width="100%" height={260}>
             <BarChart data={gadgetDistribution}>
-              <CartesianGrid strokeDasharray="3 3" stroke="hsla(220, 20%, 25%, 0.5)" />
+              <CartesianGrid strokeDasharray="3 3" stroke="hsla(220, 13%, 91%, 0.8)" />
               <XAxis dataKey="month" tick={{ fill: "hsl(220, 10%, 55%)", fontSize: 12 }} axisLine={false} />
               <YAxis tick={{ fill: "hsl(220, 10%, 55%)", fontSize: 12 }} axisLine={false} />
-              <Tooltip contentStyle={{ background: "hsl(220, 22%, 14%)", border: "1px solid hsl(220, 20%, 22%)", borderRadius: 8, color: "#fff" }} />
+              <Tooltip contentStyle={{ background: "#fff", border: "1px solid hsl(220, 13%, 91%)", borderRadius: 8, color: "hsl(220, 20%, 14%)" }} />
               <Bar dataKey="distribues" fill="hsl(152, 60%, 45%)" radius={[4, 4, 0, 0]} />
               <Bar dataKey="stock" fill="hsl(210, 100%, 56%)" radius={[4, 4, 0, 0]} />
               <Legend />
@@ -67,7 +67,7 @@ const Gadgets = () => {
               <Pie data={gadgetsByCategory} dataKey="value" nameKey="name" cx="50%" cy="50%" innerRadius={45} outerRadius={75} paddingAngle={3}>
                 {gadgetsByCategory.map((e, i) => <Cell key={i} fill={e.fill} />)}
               </Pie>
-              <Tooltip contentStyle={{ background: "hsl(220, 22%, 14%)", border: "1px solid hsl(220, 20%, 22%)", borderRadius: 8, color: "#fff" }} />
+              <Tooltip contentStyle={{ background: "#fff", border: "1px solid hsl(220, 13%, 91%)", borderRadius: 8, color: "hsl(220, 20%, 14%)" }} />
             </PieChart>
           </ResponsiveContainer>
           <div className="space-y-1.5 mt-2">

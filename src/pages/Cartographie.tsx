@@ -33,7 +33,7 @@ const Cartographie = () => {
         scrollWheelZoom: true,
       });
 
-      L.default.tileLayer("https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png", {
+      L.default.tileLayer("https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png", {
         attribution: '© <a href="https://www.openstreetmap.org/copyright">OSM</a> © <a href="https://carto.com/">CARTO</a>',
         maxZoom: 19,
       }).addTo(map);
@@ -102,7 +102,7 @@ const Cartographie = () => {
         
         marker.bindTooltip(
           `<div style="font-family: Outfit, sans-serif; font-weight: 600;">${loc.nom}</div>
-           <div style="font-size: 11px; color: #999;">${loc.ville} — ${cfg.label}</div>`,
+           <div style="font-size: 11px; color: #888;">${loc.ville} — ${cfg.label}</div>`,
           { direction: "top", offset: [0, -14], className: "custom-tooltip" }
         );
 
@@ -115,16 +115,16 @@ const Cartographie = () => {
       const style = document.createElement("style");
       style.textContent = `
         .custom-tooltip {
-          background: hsl(220, 22%, 14%) !important;
-          border: 1px solid hsl(220, 20%, 22%) !important;
-          color: #fff !important;
+          background: #fff !important;
+          border: 1px solid hsl(220, 13%, 91%) !important;
+          color: hsl(220, 20%, 14%) !important;
           border-radius: 8px !important;
           padding: 8px 12px !important;
           font-size: 13px !important;
-          box-shadow: 0 4px 20px rgba(0,0,0,0.4) !important;
+          box-shadow: 0 4px 12px rgba(0,0,0,0.1) !important;
         }
         .custom-tooltip::before {
-          border-top-color: hsl(220, 22%, 14%) !important;
+          border-top-color: #fff !important;
         }
       `;
       document.head.appendChild(style);

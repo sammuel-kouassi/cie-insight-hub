@@ -62,10 +62,10 @@ const Campagnes = () => {
                 <stop offset="100%" stopColor="hsl(152, 60%, 45%)" stopOpacity={0} />
               </linearGradient>
             </defs>
-            <CartesianGrid strokeDasharray="3 3" stroke="hsla(220, 20%, 25%, 0.5)" />
+            <CartesianGrid strokeDasharray="3 3" stroke="hsla(220, 13%, 91%, 0.8)" />
             <XAxis dataKey="month" tick={{ fill: "hsl(220, 10%, 55%)", fontSize: 12 }} axisLine={false} />
             <YAxis tick={{ fill: "hsl(220, 10%, 55%)", fontSize: 12 }} axisLine={false} />
-            <Tooltip contentStyle={{ background: "hsl(220, 22%, 14%)", border: "1px solid hsl(220, 20%, 22%)", borderRadius: 8, color: "#fff" }} />
+            <Tooltip contentStyle={{ background: "#fff", border: "1px solid hsl(220, 13%, 91%)", borderRadius: 8, color: "hsl(220, 20%, 14%)" }} />
             <Area type="monotone" dataKey="campagnes" stroke="hsl(152, 60%, 45%)" fill="url(#gradCamp)" strokeWidth={2} />
             <Area type="monotone" dataKey="participants" stroke="hsl(152, 60%, 45%)" fill="transparent" strokeWidth={2} strokeDasharray="5 5" />
             <Legend />
