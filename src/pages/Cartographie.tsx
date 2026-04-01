@@ -115,16 +115,16 @@ const Cartographie = () => {
       const style = document.createElement("style");
       style.textContent = `
         .custom-tooltip {
-          background: hsl(220, 22%, 14%) !important;
-          border: 1px solid hsl(220, 20%, 22%) !important;
-          color: #fff !important;
+          background: #fff !important;
+          border: 1px solid hsl(220, 13%, 91%) !important;
+          color: hsl(220, 20%, 14%) !important;
           border-radius: 8px !important;
           padding: 8px 12px !important;
           font-size: 13px !important;
-          box-shadow: 0 4px 20px rgba(0,0,0,0.4) !important;
+          box-shadow: 0 4px 12px rgba(0,0,0,0.1) !important;
         }
         .custom-tooltip::before {
-          border-top-color: hsl(220, 22%, 14%) !important;
+          border-top-color: #fff !important;
         }
       `;
       document.head.appendChild(style);
