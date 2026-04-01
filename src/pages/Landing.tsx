@@ -44,8 +44,6 @@ const Landing = () => {
               <Button variant="default" size="sm">
                 Tableau de bord <ArrowRight className="ml-1 w-4 h-4" />
               </Button>
-                Tableau de bord <ArrowRight className="ml-1 w-4 h-4" />
-              </Button>
             </Link>
           </div>
         </div>
