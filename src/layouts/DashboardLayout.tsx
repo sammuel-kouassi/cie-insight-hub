@@ -11,7 +11,7 @@ const DashboardLayout = () => {
         <DashboardSidebar />
         <div className="flex-1 flex flex-col">
           {/* Header */}
-          <header className="h-14 flex items-center justify-between border-b border-dashboard-border px-4 bg-dashboard-card/50 backdrop-blur-lg">
+          <header className="h-14 flex items-center justify-between border-b border-dashboard-border px-4 bg-dashboard-card">
             <div className="flex items-center gap-3">
               <SidebarTrigger className="text-dashboard-card-foreground hover:text-primary" />
               <span className="text-sm font-medium text-dashboard-card-foreground/60">
