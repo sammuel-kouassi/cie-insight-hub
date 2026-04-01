@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 const DashboardLayout = () => {
   return (
     <SidebarProvider>
-      <div className="min-h-screen flex w-full gradient-dark">
+      <div className="min-h-screen flex w-full bg-dashboard">
         <DashboardSidebar />
         <div className="flex-1 flex flex-col">
           {/* Header */}
