@@ -1,16 +1,16 @@
 export const monthlyParticipants = [
-  { month: "Jan", participants: 320, campagnes: 8 },
-  { month: "Fév", participants: 480, campagnes: 12 },
-  { month: "Mar", participants: 560, campagnes: 15 },
-  { month: "Avr", participants: 420, campagnes: 10 },
-  { month: "Mai", participants: 680, campagnes: 18 },
-  { month: "Jun", participants: 750, campagnes: 20 },
-  { month: "Jul", participants: 620, campagnes: 16 },
-  { month: "Aoû", participants: 530, campagnes: 14 },
-  { month: "Sep", participants: 710, campagnes: 19 },
-  { month: "Oct", participants: 890, campagnes: 22 },
-  { month: "Nov", participants: 820, campagnes: 21 },
-  { month: "Déc", participants: 640, campagnes: 17 },
+  { month: "Jan", participants: 320, objectif: 400 },
+  { month: "Fév", participants: 480, objectif: 450 },
+  { month: "Mar", participants: 560, objectif: 500 },
+  { month: "Avr", participants: 420, objectif: 500 },
+  { month: "Mai", participants: 680, objectif: 600 },
+  { month: "Jun", participants: 750, objectif: 650 },
+  { month: "Jul", participants: 620, objectif: 700 },
+  { month: "Aoû", participants: 530, objectif: 600 },
+  { month: "Sep", participants: 710, objectif: 700 },
+  { month: "Oct", participants: 890, objectif: 800 },
+  { month: "Nov", participants: 820, objectif: 850 },
+  { month: "Déc", participants: 640, objectif: 700 },
 ];
 
 export const participantsByRegion = [
@@ -59,16 +59,14 @@ export const weeklyActivity = [
 
 // ── Participants page data ──
 export const participantsList = [
-  { id: 1, nom: "Koné Amadou", type: "Particulier", region: "Abidjan", telephone: "07 12 34 56", date: "2025-01-10", campagne: "Sensibilisation Abobo" },
-  { id: 2, nom: "Touré Fatou", type: "Commerçant", region: "Bouaké", telephone: "05 98 76 54", date: "2025-01-12", campagne: "Campagne Bouaké Centre" },
-  { id: 3, nom: "Bamba Issouf", type: "Entreprise", region: "Abidjan", telephone: "01 23 45 67", date: "2025-01-14", campagne: "Mission Yopougon" },
-  { id: 4, nom: "Diallo Mariam", type: "Particulier", region: "San Pedro", telephone: "07 65 43 21", date: "2025-01-15", campagne: "Campagne San Pedro" },
-  { id: 5, nom: "Yao Kouassi", type: "Administration", region: "Yamoussoukro", telephone: "05 11 22 33", date: "2025-01-16", campagne: "Sensibilisation Yamoussoukro" },
-  { id: 6, nom: "Coulibaly Seydou", type: "Particulier", region: "Korhogo", telephone: "07 44 55 66", date: "2025-01-17", campagne: "Sensibilisation Korhogo" },
-  { id: 7, nom: "Ouattara Awa", type: "Commerçant", region: "Daloa", telephone: "05 77 88 99", date: "2025-01-18", campagne: "Campagne Daloa" },
-  { id: 8, nom: "N'Guessan Yves", type: "Particulier", region: "Abidjan", telephone: "01 00 11 22", date: "2025-01-19", campagne: "Sensibilisation Abobo" },
-  { id: 9, nom: "Traoré Mohamed", type: "Entreprise", region: "Bouaké", telephone: "07 33 44 55", date: "2025-01-20", campagne: "Campagne Bouaké Centre" },
-  { id: 10, nom: "Konan Adjoua", type: "Particulier", region: "Abidjan", telephone: "05 66 77 88", date: "2025-01-21", campagne: "Mission Yopougon" },
+  { id: 1, nom: "Koné", prenom: "Amadou", telephone: "07 12 34 56", profession: "Commerçant", statutLogement: "Propriétaire", lieuHabitation: "Abobo", localite: "Abidjan", quartier: "Abobo Baoulé", seance: "Sensibilisation Abobo", besoinExprime: "Compteur prépayé" },
+  { id: 2, nom: "Touré", prenom: "Fatou", telephone: "05 98 76 54", profession: "Ménagère", statutLogement: "Locataire", lieuHabitation: "Bouaké", localite: "Bouaké", quartier: "Commerce", seance: "Campagne Bouaké Centre", besoinExprime: "Branchement neuf" },
+  { id: 3, nom: "Bamba", prenom: "Issouf", telephone: "01 23 45 67", profession: "Entrepreneur", statutLogement: "Propriétaire", lieuHabitation: "Yopougon", localite: "Abidjan", quartier: "Sicogi", seance: "Mission Yopougon", besoinExprime: "Augmentation puissance" },
+  { id: 4, nom: "Diallo", prenom: "Mariam", telephone: "07 65 43 21", profession: "Enseignante", statutLogement: "Locataire", lieuHabitation: "San Pedro", localite: "San Pedro", quartier: "Cité", seance: "Campagne San Pedro", besoinExprime: "Compteur prépayé" },
+  { id: 5, nom: "Yao", prenom: "Kouassi", telephone: "05 11 22 33", profession: "Fonctionnaire", statutLogement: "Propriétaire", lieuHabitation: "Yamoussoukro", localite: "Yamoussoukro", quartier: "Habitat", seance: "Sensibilisation Yamoussoukro", besoinExprime: "Branchement neuf" },
+  { id: 6, nom: "Coulibaly", prenom: "Seydou", telephone: "07 44 55 66", profession: "Agriculteur", statutLogement: "Propriétaire", lieuHabitation: "Korhogo", localite: "Korhogo", quartier: "Soba", seance: "Sensibilisation Korhogo", besoinExprime: "Extension réseau" },
+  { id: 7, nom: "Ouattara", prenom: "Awa", telephone: "05 77 88 99", profession: "Commerçante", statutLogement: "Locataire", lieuHabitation: "Daloa", localite: "Daloa", quartier: "Marché", seance: "Campagne Daloa", besoinExprime: "Compteur prépayé" },
+  { id: 8, nom: "N'Guessan", prenom: "Yves", telephone: "01 00 11 22", profession: "Étudiant", statutLogement: "Locataire", lieuHabitation: "Cocody", localite: "Abidjan", quartier: "Riviera", seance: "Sensibilisation Abobo", besoinExprime: "Branchement neuf" },
 ];
 
 // ── Contacts / Prises de contact ──
@@ -108,11 +106,11 @@ export const rdvByStatus = [
 
 // ── Gadgets ──
 export const gadgetsList = [
-  { id: 1, nom: "T-shirt GS2E", categorie: "Textile", stock: 450, distribues: 1200, campagne: "Sensibilisation Abobo" },
-  { id: 2, nom: "Casquette GS2E", categorie: "Textile", stock: 320, distribues: 890, campagne: "Multiple" },
-  { id: 3, nom: "Stylo GS2E", categorie: "Papeterie", stock: 1500, distribues: 3200, campagne: "Multiple" },
+  { id: 1, nom: "T-shirt DLF", categorie: "Textile", stock: 450, distribues: 1200, campagne: "Sensibilisation Abobo" },
+  { id: 2, nom: "Casquette DLF", categorie: "Textile", stock: 320, distribues: 890, campagne: "Multiple" },
+  { id: 3, nom: "Stylo DLF", categorie: "Papeterie", stock: 1500, distribues: 3200, campagne: "Multiple" },
   { id: 4, nom: "Porte-clés", categorie: "Accessoire", stock: 200, distribues: 650, campagne: "Campagne Bouaké" },
-  { id: 5, nom: "Sac GS2E", categorie: "Textile", stock: 180, distribues: 420, campagne: "Mission Yopougon" },
+  { id: 5, nom: "Sac DLF", categorie: "Textile", stock: 180, distribues: 420, campagne: "Mission Yopougon" },
   { id: 6, nom: "Bloc-notes", categorie: "Papeterie", stock: 600, distribues: 1100, campagne: "Multiple" },
 ];
 
