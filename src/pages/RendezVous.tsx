@@ -17,7 +17,7 @@ const RendezVous = () => {
   const [search, setSearch] = useState("");
   const [showForm, setShowForm] = useState(false);
   const filtered = rdvList.filter(
-    (r) => r.participant.toLowerCase().includes(search.toLowerCase()) || r.agent.toLowerCase().includes(search.toLowerCase())
+    (r) => r.titre.toLowerCase().includes(search.toLowerCase()) || r.contact.toLowerCase().includes(search.toLowerCase())
   );
 
   return (
@@ -136,22 +136,24 @@ const RendezVous = () => {
           <table className="w-full text-sm">
             <thead>
               <tr className="border-b border-dashboard-border text-dashboard-card-foreground/50">
-                <th className="text-left py-3 px-2 font-medium">Participant</th>
-                <th className="text-left py-3 px-2 font-medium">Agent</th>
+                <th className="text-left py-3 px-2 font-medium">Titre</th>
+                <th className="text-left py-3 px-2 font-medium">Contact</th>
                 <th className="text-left py-3 px-2 font-medium">Date</th>
                 <th className="text-left py-3 px-2 font-medium">Heure</th>
                 <th className="text-left py-3 px-2 font-medium">Lieu</th>
+                <th className="text-left py-3 px-2 font-medium">Séance associée</th>
                 <th className="text-center py-3 px-2 font-medium">Statut</th>
               </tr>
             </thead>
             <tbody>
               {filtered.map((r) => (
                 <tr key={r.id} className="border-b border-dashboard-border/50 hover:bg-dashboard-card/50 transition-colors">
-                  <td className="py-3 px-2 text-dashboard-card-foreground font-medium">{r.participant}</td>
-                  <td className="py-3 px-2 text-dashboard-card-foreground/70">{r.agent}</td>
+                  <td className="py-3 px-2 text-dashboard-card-foreground font-medium">{r.titre}</td>
+                  <td className="py-3 px-2 text-dashboard-card-foreground/70">{r.contact}</td>
                   <td className="py-3 px-2 text-dashboard-card-foreground/70">{r.date}</td>
                   <td className="py-3 px-2 text-dashboard-card-foreground/70">{r.heure}</td>
                   <td className="py-3 px-2 text-dashboard-card-foreground/70">{r.lieu}</td>
+                  <td className="py-3 px-2 text-dashboard-card-foreground/70">{r.seance}</td>
                   <td className="py-3 px-2 text-center">
                     <span className={`text-xs font-semibold px-2.5 py-1 rounded-full ${statutColor[r.statut]}`}>{r.statut}</span>
                   </td>

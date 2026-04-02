@@ -10,6 +10,35 @@ const statusConfig = {
   "Planifiée": { color: "#9ca3af", label: "Planifiée", glow: false },
 };
 
+// Simplified GeoJSON boundary of Côte d'Ivoire
+const coteIvoireBoundary = {
+  type: "Feature" as const,
+  properties: { name: "Côte d'Ivoire" },
+  geometry: {
+    type: "Polygon" as const,
+    coordinates: [[
+      [-8.6, 4.3], [-8.2, 4.5], [-7.9, 4.4], [-7.5, 4.35], [-7.2, 4.4],
+      [-7.0, 4.4], [-6.6, 4.3], [-6.2, 4.3], [-5.8, 4.35], [-5.5, 4.3],
+      [-5.2, 4.4], [-5.0, 4.5], [-4.7, 4.6], [-4.4, 4.7], [-4.0, 4.8],
+      [-3.6, 4.9], [-3.5, 5.0], [-3.3, 5.1], [-3.1, 5.1], [-2.9, 5.1],
+      [-2.8, 5.2], [-2.8, 5.4], [-3.0, 5.6], [-3.0, 5.8], [-3.2, 6.0],
+      [-3.2, 6.2], [-3.1, 6.4], [-2.9, 6.6], [-2.8, 6.8], [-2.8, 7.0],
+      [-2.9, 7.2], [-3.0, 7.4], [-3.1, 7.6], [-3.2, 7.8], [-3.3, 8.0],
+      [-3.4, 8.2], [-3.5, 8.4], [-3.6, 8.6], [-3.8, 8.8], [-4.0, 9.0],
+      [-4.2, 9.2], [-4.4, 9.4], [-4.6, 9.6], [-4.8, 9.7], [-5.0, 9.8],
+      [-5.2, 10.0], [-5.4, 10.1], [-5.6, 10.2], [-5.8, 10.3], [-6.0, 10.3],
+      [-6.2, 10.3], [-6.4, 10.3], [-6.6, 10.2], [-6.8, 10.1], [-7.0, 10.0],
+      [-7.2, 10.0], [-7.4, 10.0], [-7.6, 10.0], [-7.8, 9.9], [-8.0, 9.8],
+      [-8.2, 9.6], [-8.3, 9.4], [-8.4, 9.2], [-8.5, 9.0], [-8.5, 8.8],
+      [-8.4, 8.6], [-8.3, 8.4], [-8.2, 8.2], [-8.1, 8.0], [-8.0, 7.8],
+      [-7.9, 7.6], [-8.0, 7.4], [-8.2, 7.2], [-8.3, 7.0], [-8.4, 6.8],
+      [-8.5, 6.6], [-8.5, 6.4], [-8.6, 6.2], [-8.6, 6.0], [-8.6, 5.8],
+      [-8.6, 5.6], [-8.6, 5.4], [-8.6, 5.2], [-8.6, 5.0], [-8.6, 4.8],
+      [-8.6, 4.5], [-8.6, 4.3],
+    ]],
+  },
+};
+
 const Cartographie = () => {
   const mapRef = useRef<HTMLDivElement>(null);
   const mapInstanceRef = useRef<any>(null);
@@ -25,12 +54,22 @@ const Cartographie = () => {
 
     const initMap = async () => {
       const L = await import("leaflet");
-      
+
+      // Bounds of Côte d'Ivoire
+      const civBounds = L.default.latLngBounds(
+        L.default.latLng(4.1, -8.7),
+        L.default.latLng(10.8, -2.5)
+      );
+
       const map = L.default.map(mapRef.current!, {
-        center: [7.0, -5.5],
-        zoom: 6.5,
+        center: [7.5, -5.5],
+        zoom: 7,
         zoomControl: true,
         scrollWheelZoom: true,
+        maxBounds: civBounds.pad(0.1),
+        maxBoundsViscosity: 1.0,
+        minZoom: 6,
+        maxZoom: 12,
       });
 
       L.default.tileLayer("https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png", {
@@ -38,6 +77,32 @@ const Cartographie = () => {
         maxZoom: 19,
       }).addTo(map);
 
+      // Draw Côte d'Ivoire border
+      L.default.geoJSON(coteIvoireBoundary as any, {
+        style: {
+          color: "hsl(152, 60%, 45%)",
+          weight: 2.5,
+          fillColor: "hsl(152, 60%, 90%)",
+          fillOpacity: 0.15,
+          dashArray: "",
+        },
+      }).addTo(map);
+
+      // Mask outside Côte d'Ivoire
+      const outerBounds: [number, number][] = [
+        [-90, -180], [-90, 180], [90, 180], [90, -180], [-90, -180],
+      ];
+      const ciCoords = coteIvoireBoundary.geometry.coordinates[0].map(
+        (c) => [c[1], c[0]] as [number, number]
+      );
+      L.default.polygon([outerBounds, ciCoords], {
+        color: "transparent",
+        fillColor: "#f0f0f0",
+        fillOpacity: 0.85,
+        interactive: false,
+      }).addTo(map);
+
+      map.fitBounds(civBounds, { padding: [20, 20] });
       mapInstanceRef.current = map;
 
       // Draw route lines
@@ -46,7 +111,6 @@ const Cartographie = () => {
         return [loc.lat, loc.lng] as [number, number];
       });
 
-      // Animated dashed route
       L.default.polyline(routeCoords, {
         color: "hsl(152, 60%, 45%)",
         weight: 2,
@@ -54,7 +118,6 @@ const Cartographie = () => {
         dashArray: "8, 12",
       }).addTo(map);
 
-      // Route direction arrows
       for (let i = 0; i < routeCoords.length - 1; i++) {
         const mid: [number, number] = [
           (routeCoords[i][0] + routeCoords[i + 1][0]) / 2,
@@ -73,7 +136,7 @@ const Cartographie = () => {
       campaignLocations.forEach((loc) => {
         const cfg = statusConfig[loc.statut];
         const isBlinking = cfg.glow;
-        
+
         const markerHtml = `
           <div style="
             width: 20px; height: 20px; 
@@ -99,7 +162,7 @@ const Cartographie = () => {
         });
 
         const marker = L.default.marker([loc.lat, loc.lng], { icon }).addTo(map);
-        
+
         marker.bindTooltip(
           `<div style="font-family: Outfit, sans-serif; font-weight: 600;">${loc.nom}</div>
            <div style="font-size: 11px; color: #888;">${loc.ville} — ${cfg.label}</div>`,
@@ -111,7 +174,6 @@ const Cartographie = () => {
         });
       });
 
-      // Add custom tooltip styles
       const style = document.createElement("style");
       style.textContent = `
         .custom-tooltip {
@@ -152,9 +214,7 @@ const Cartographie = () => {
         </p>
       </motion.div>
 
-      {/* Legend + Stats */}
       <div className="grid lg:grid-cols-4 gap-4">
-        {/* Legend */}
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="glass-card rounded-xl p-5">
           <h3 className="text-sm font-semibold text-dashboard-card-foreground mb-4" style={{ fontFamily: "Outfit" }}>
             Légende
@@ -192,7 +252,6 @@ const Cartographie = () => {
           </div>
         </motion.div>
 
-        {/* Map */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -204,7 +263,6 @@ const Cartographie = () => {
         </motion.div>
       </div>
 
-      {/* Selected campaign detail */}
       {selected && (
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -255,7 +313,6 @@ const Cartographie = () => {
         </motion.div>
       )}
 
-      {/* Campaign list table */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}

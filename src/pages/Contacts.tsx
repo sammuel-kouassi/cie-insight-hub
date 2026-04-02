@@ -5,17 +5,10 @@ import { contactsList, contactsByResult } from "@/data/mockData";
 import { useState } from "react";
 import { Input } from "@/components/ui/input";
 
-const resultatColor: Record<string, string> = {
-  "Converti": "bg-success/20 text-success",
-  "Intéressé": "bg-warning/20 text-warning",
-  "Rendez-vous pris": "bg-info/20 text-info",
-  "Pas intéressé": "bg-muted text-muted-foreground",
-};
-
 const Contacts = () => {
   const [search, setSearch] = useState("");
   const filtered = contactsList.filter(
-    (c) => c.participant.toLowerCase().includes(search.toLowerCase()) || c.agent.toLowerCase().includes(search.toLowerCase())
+    (c) => c.nomComplet.toLowerCase().includes(search.toLowerCase()) || c.directionRegionale.toLowerCase().includes(search.toLowerCase())
   );
 
   return (
@@ -25,7 +18,7 @@ const Contacts = () => {
           <Phone className="inline w-6 h-6 mr-2 text-primary" />
           Prises de Contact
         </h1>
-        <p className="text-sm text-dashboard-card-foreground/50">Historique des contacts effectués par les agents</p>
+        <p className="text-sm text-dashboard-card-foreground/50">Historique des contacts effectués sur le terrain</p>
       </motion.div>
 
       {/* Chart + stats */}
@@ -57,8 +50,8 @@ const Contacts = () => {
           <div className="grid grid-cols-2 gap-4 h-full">
             {[
               { label: "Total Contacts", value: contactsList.length, color: "text-primary" },
-              { label: "Visites", value: contactsList.filter((c) => c.type === "Visite").length, color: "text-success" },
-              { label: "Appels", value: contactsList.filter((c) => c.type === "Appel").length, color: "text-info" },
+              { label: "Directions", value: new Set(contactsList.map(c => c.directionRegionale)).size, color: "text-success" },
+              { label: "Sites visités", value: new Set(contactsList.map(c => c.site)).size, color: "text-info" },
               { label: "Taux Conversion", value: "35%", color: "text-warning" },
             ].map((s) => (
               <div key={s.label} className="flex flex-col items-center justify-center">
@@ -83,25 +76,31 @@ const Contacts = () => {
           <table className="w-full text-sm">
             <thead>
               <tr className="border-b border-dashboard-border text-dashboard-card-foreground/50">
-                <th className="text-left py-3 px-2 font-medium">Participant</th>
-                <th className="text-left py-3 px-2 font-medium">Type</th>
-                <th className="text-left py-3 px-2 font-medium">Agent</th>
+                <th className="text-left py-3 px-2 font-medium">Nom complet</th>
+                <th className="text-left py-3 px-2 font-medium">Téléphone</th>
                 <th className="text-left py-3 px-2 font-medium">Date</th>
-                <th className="text-left py-3 px-2 font-medium">Région</th>
-                <th className="text-center py-3 px-2 font-medium">Résultat</th>
+                <th className="text-left py-3 px-2 font-medium">Objet de mission</th>
+                <th className="text-left py-3 px-2 font-medium">Direction rég.</th>
+                <th className="text-left py-3 px-2 font-medium">Agence</th>
+                <th className="text-left py-3 px-2 font-medium">Quartier</th>
+                <th className="text-left py-3 px-2 font-medium">Site</th>
+                <th className="text-left py-3 px-2 font-medium">Points abordés</th>
+                <th className="text-left py-3 px-2 font-medium">Observations</th>
               </tr>
             </thead>
             <tbody>
               {filtered.map((c) => (
                 <tr key={c.id} className="border-b border-dashboard-border/50 hover:bg-dashboard-card/50 transition-colors">
-                  <td className="py-3 px-2 text-dashboard-card-foreground font-medium">{c.participant}</td>
-                  <td className="py-3 px-2 text-dashboard-card-foreground/70">{c.type}</td>
-                  <td className="py-3 px-2 text-dashboard-card-foreground/70">{c.agent}</td>
-                  <td className="py-3 px-2 text-dashboard-card-foreground/70">{c.date}</td>
-                  <td className="py-3 px-2 text-dashboard-card-foreground/70">{c.region}</td>
-                  <td className="py-3 px-2 text-center">
-                    <span className={`text-xs font-semibold px-2.5 py-1 rounded-full ${resultatColor[c.resultat] || "bg-muted text-muted-foreground"}`}>{c.resultat}</span>
-                  </td>
+                  <td className="py-3 px-2 text-dashboard-card-foreground font-medium whitespace-nowrap">{c.nomComplet}</td>
+                  <td className="py-3 px-2 text-dashboard-card-foreground/70 whitespace-nowrap">{c.telephone}</td>
+                  <td className="py-3 px-2 text-dashboard-card-foreground/70 whitespace-nowrap">{c.date}</td>
+                  <td className="py-3 px-2 text-dashboard-card-foreground/70">{c.objetMission}</td>
+                  <td className="py-3 px-2 text-dashboard-card-foreground/70 whitespace-nowrap">{c.directionRegionale}</td>
+                  <td className="py-3 px-2 text-dashboard-card-foreground/70 whitespace-nowrap">{c.agence}</td>
+                  <td className="py-3 px-2 text-dashboard-card-foreground/70">{c.quartier}</td>
+                  <td className="py-3 px-2 text-dashboard-card-foreground/70">{c.site}</td>
+                  <td className="py-3 px-2 text-dashboard-card-foreground/70 text-xs">{c.pointsAbordes}</td>
+                  <td className="py-3 px-2 text-dashboard-card-foreground/70 text-xs">{c.observations}</td>
                 </tr>
               ))}
             </tbody>
