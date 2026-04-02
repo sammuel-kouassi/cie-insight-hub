@@ -15,7 +15,7 @@ const DashboardLayout = () => {
             <div className="flex items-center gap-3">
               <SidebarTrigger className="text-dashboard-card-foreground hover:text-primary" />
               <span className="text-sm font-medium text-dashboard-card-foreground/60">
-                GS2E — Gestion des Sensibilisations
+                DLF — Sensibilisation
               </span>
             </div>
             <div className="flex items-center gap-2">

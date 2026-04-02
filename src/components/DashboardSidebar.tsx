@@ -12,31 +12,22 @@ import {
 import { NavLink } from "@/components/NavLink";
 import {
   LayoutDashboard,
-  Users,
   Megaphone,
-  Phone,
-  Gift,
-  BarChart3,
-  CalendarCheck,
-  Settings,
-  Zap,
-  Home,
   Map,
+  Activity,
+  Settings,
+  Home,
 } from "lucide-react";
 
 const menuItems = [
   { title: "Tableau de bord", url: "/dashboard", icon: LayoutDashboard },
-  { title: "Participants", url: "/dashboard/participants", icon: Users },
-  { title: "Campagnes", url: "/dashboard/campagnes", icon: Megaphone },
+  { title: "Séances", url: "/dashboard/seances", icon: Megaphone },
   { title: "Cartographie", url: "/dashboard/cartographie", icon: Map },
-  { title: "Prises de contact", url: "/dashboard/contacts", icon: Phone },
-  { title: "Rendez-vous", url: "/dashboard/rdv", icon: CalendarCheck },
-  { title: "Gadgets", url: "/dashboard/gadgets", icon: Gift },
-  { title: "Statistiques", url: "/dashboard/stats", icon: BarChart3 },
+  { title: "Activité", url: "/dashboard/activite", icon: Activity },
 ];
 
 const bottomItems = [
-  { title: "Paramètres", url: "/dashboard/settings", icon: Settings },
+  { title: "Administration", url: "/dashboard/administration", icon: Settings },
   { title: "Retour au site", url: "/", icon: Home },
 ];
 
@@ -49,13 +40,14 @@ export function DashboardSidebar() {
       <SidebarContent className="bg-sidebar">
         {/* Logo */}
         <div className="flex items-center gap-2 px-4 py-5 border-b border-sidebar-border">
-          <div className="w-8 h-8 rounded-lg gradient-green-orange flex items-center justify-center flex-shrink-0">
-            <Zap className="w-4 h-4 text-sidebar-primary-foreground" />
-          </div>
-          {!collapsed && (
-            <span className="font-bold text-sm text-sidebar-accent-foreground tracking-tight" style={{ fontFamily: 'Outfit' }}>
-              GS2E Dashboard
+          {!collapsed ? (
+            <span className="font-bold text-sm tracking-tight" style={{ fontFamily: 'Outfit' }}>
+              <span className="text-primary">DLF</span>
+              <span className="text-sidebar-foreground/40 mx-0.5">|</span>
+              <span className="text-accent">Sensibilisation</span>
             </span>
+          ) : (
+            <span className="font-bold text-sm text-primary" style={{ fontFamily: 'Outfit' }}>DLF</span>
           )}
         </div>
 
