@@ -31,11 +31,11 @@ export const participantsByType = [
 ];
 
 export const recentCampaigns = [
-  { id: 1, nom: "Sensibilisation Abobo", region: "Abidjan", agent: "Kouamé A.", date: "2025-01-15", participants: 145, statut: "Terminée" },
-  { id: 2, nom: "Campagne Bouaké Centre", region: "Bouaké", agent: "Traoré M.", date: "2025-01-18", participants: 89, statut: "En cours" },
-  { id: 3, nom: "Mission Yopougon", region: "Abidjan", agent: "Bamba K.", date: "2025-01-20", participants: 210, statut: "Terminée" },
-  { id: 4, nom: "Sensibilisation Korhogo", region: "Korhogo", agent: "Coulibaly S.", date: "2025-01-22", participants: 67, statut: "Planifiée" },
-  { id: 5, nom: "Campagne San Pedro", region: "San Pedro", agent: "Yao F.", date: "2025-01-25", participants: 132, statut: "En cours" },
+  { id: 1, nom: "Sensibilisation Abobo", objectifs: "Sensibiliser sur la sécurité électrique", zone: "Abidjan", objectifParticipants: 200, organisateur: "Kouamé A.", datePrevue: "2025-01-15", heureDebut: "08:00", heureFin: "12:00", statut: "Terminée" },
+  { id: 2, nom: "Campagne Bouaké Centre", objectifs: "Économie d'énergie et branchements", zone: "Bouaké", objectifParticipants: 150, organisateur: "Traoré M.", datePrevue: "2025-01-18", heureDebut: "09:00", heureFin: "13:00", statut: "En cours" },
+  { id: 3, nom: "Mission Yopougon", objectifs: "Lutte contre les branchements illicites", zone: "Abidjan", objectifParticipants: 250, organisateur: "Bamba K.", datePrevue: "2025-01-20", heureDebut: "07:30", heureFin: "11:30", statut: "Terminée" },
+  { id: 4, nom: "Sensibilisation Korhogo", objectifs: "Droits et devoirs du client", zone: "Korhogo", objectifParticipants: 100, organisateur: "Coulibaly S.", datePrevue: "2025-02-05", heureDebut: "08:00", heureFin: "12:00", statut: "Planifiée" },
+  { id: 5, nom: "Campagne San Pedro", objectifs: "Facturation et paiement", zone: "San Pedro", objectifParticipants: 180, organisateur: "Yao F.", datePrevue: "2025-01-25", heureDebut: "09:00", heureFin: "14:00", statut: "En cours" },
 ];
 
 export const gadgetDistribution = [
@@ -71,14 +71,14 @@ export const participantsList = [
 
 // ── Contacts / Prises de contact ──
 export const contactsList = [
-  { id: 1, participant: "Koné Amadou", type: "Visite", agent: "Kouamé A.", date: "2025-01-10", region: "Abidjan", resultat: "Intéressé" },
-  { id: 2, participant: "Touré Fatou", type: "Appel", agent: "Traoré M.", date: "2025-01-11", region: "Bouaké", resultat: "Rendez-vous pris" },
-  { id: 3, participant: "Bamba Issouf", type: "Visite", agent: "Bamba K.", date: "2025-01-12", region: "Abidjan", resultat: "Converti" },
-  { id: 4, participant: "Diallo Mariam", type: "Appel", agent: "Yao F.", date: "2025-01-13", region: "San Pedro", resultat: "Pas intéressé" },
-  { id: 5, participant: "Yao Kouassi", type: "Visite", agent: "Kouamé A.", date: "2025-01-14", region: "Yamoussoukro", resultat: "Intéressé" },
-  { id: 6, participant: "Coulibaly Seydou", type: "Visite", agent: "Coulibaly S.", date: "2025-01-15", region: "Korhogo", resultat: "Rendez-vous pris" },
-  { id: 7, participant: "Ouattara Awa", type: "Appel", agent: "Traoré M.", date: "2025-01-16", region: "Daloa", resultat: "Converti" },
-  { id: 8, participant: "N'Guessan Yves", type: "Visite", agent: "Bamba K.", date: "2025-01-17", region: "Abidjan", resultat: "Intéressé" },
+  { id: 1, nomComplet: "Koné Amadou", telephone: "07 12 34 56", date: "2025-01-10", objetMission: "Sensibilisation sur la sécurité", directionRegionale: "Abidjan", agence: "Agence Abobo", quartier: "Abobo Baoulé", site: "Marché central", pointsAbordes: "Sécurité électrique, Économie d'énergie", observations: "Client très intéressé" },
+  { id: 2, nomComplet: "Touré Fatou", telephone: "05 98 76 54", date: "2025-01-11", objetMission: "Branchements illicites", directionRegionale: "Bouaké", agence: "Agence Bouaké Centre", quartier: "Commerce", site: "Quartier Commerce", pointsAbordes: "Branchements illicites, Facturation", observations: "RDV pris pour suivi" },
+  { id: 3, nomComplet: "Bamba Issouf", telephone: "01 23 45 67", date: "2025-01-12", objetMission: "Économie d'énergie", directionRegionale: "Abidjan", agence: "Agence Yopougon", quartier: "Sicogi", site: "Résidence Sicogi", pointsAbordes: "Économie d'énergie, Droits client", observations: "Converti" },
+  { id: 4, nomComplet: "Diallo Mariam", telephone: "07 65 43 21", date: "2025-01-13", objetMission: "Facturation et paiement", directionRegionale: "San Pedro", agence: "Agence San Pedro", quartier: "Cité", site: "Place du marché", pointsAbordes: "Facturation et paiement", observations: "Pas intéressée" },
+  { id: 5, nomComplet: "Yao Kouassi", telephone: "05 11 22 33", date: "2025-01-14", objetMission: "Sécurité électrique", directionRegionale: "Yamoussoukro", agence: "Agence Yamoussoukro", quartier: "Habitat", site: "Cité Habitat", pointsAbordes: "Sécurité électrique, Numéros d'urgence", observations: "Intéressé, demande brochure" },
+  { id: 6, nomComplet: "Coulibaly Seydou", telephone: "07 44 55 66", date: "2025-01-15", objetMission: "Droits et devoirs du client", directionRegionale: "Korhogo", agence: "Agence Korhogo", quartier: "Soba", site: "Chef-lieu Soba", pointsAbordes: "Droits et devoirs, Branchements illicites", observations: "RDV planifié" },
+  { id: 7, nomComplet: "Ouattara Awa", telephone: "05 77 88 99", date: "2025-01-16", objetMission: "Sensibilisation générale", directionRegionale: "Daloa", agence: "Agence Daloa", quartier: "Marché", site: "Grand marché", pointsAbordes: "Économie d'énergie, Facturation", observations: "Converti avec succès" },
+  { id: 8, nomComplet: "N'Guessan Yves", telephone: "01 00 11 22", date: "2025-01-17", objetMission: "Sécurité électrique", directionRegionale: "Abidjan", agence: "Agence Cocody", quartier: "Riviera", site: "Riviera Palmeraie", pointsAbordes: "Sécurité électrique", observations: "Étudiant, sensibilisé" },
 ];
 
 export const contactsByResult = [
@@ -90,12 +90,12 @@ export const contactsByResult = [
 
 // ── Rendez-vous ──
 export const rdvList = [
-  { id: 1, participant: "Touré Fatou", agent: "Traoré M.", date: "2025-01-20", heure: "09:00", lieu: "Bureau Bouaké", statut: "Confirmé" },
-  { id: 2, participant: "Coulibaly Seydou", agent: "Coulibaly S.", date: "2025-01-21", heure: "10:30", lieu: "Domicile", statut: "En attente" },
-  { id: 3, participant: "Koné Amadou", agent: "Kouamé A.", date: "2025-01-22", heure: "14:00", lieu: "Bureau Abidjan", statut: "Confirmé" },
-  { id: 4, participant: "Yao Kouassi", agent: "Kouamé A.", date: "2025-01-23", heure: "11:00", lieu: "Mairie Yamoussoukro", statut: "Annulé" },
-  { id: 5, participant: "Bamba Issouf", agent: "Bamba K.", date: "2025-01-24", heure: "15:30", lieu: "Bureau Abidjan", statut: "Confirmé" },
-  { id: 6, participant: "Diallo Mariam", agent: "Yao F.", date: "2025-01-25", heure: "09:30", lieu: "Bureau San Pedro", statut: "En attente" },
+  { id: 1, titre: "Visite de suivi", contact: "Touré Fatou", date: "2025-01-20", heure: "09:00", lieu: "Bureau Bouaké", seance: "Campagne Bouaké Centre", statut: "Confirmé" },
+  { id: 2, titre: "Évaluation terrain", contact: "Coulibaly Seydou", date: "2025-01-21", heure: "10:30", lieu: "Domicile", seance: "Sensibilisation Korhogo", statut: "En attente" },
+  { id: 3, titre: "Présentation compteur", contact: "Koné Amadou", date: "2025-01-22", heure: "14:00", lieu: "Bureau Abidjan", seance: "Sensibilisation Abobo", statut: "Confirmé" },
+  { id: 4, titre: "Suivi branchement", contact: "Yao Kouassi", date: "2025-01-23", heure: "11:00", lieu: "Mairie Yamoussoukro", seance: "Sensibilisation Yamoussoukro", statut: "Annulé" },
+  { id: 5, titre: "Finalisation dossier", contact: "Bamba Issouf", date: "2025-01-24", heure: "15:30", lieu: "Bureau Abidjan", seance: "Mission Yopougon", statut: "Confirmé" },
+  { id: 6, titre: "Consultation technique", contact: "Diallo Mariam", date: "2025-01-25", heure: "09:30", lieu: "Bureau San Pedro", seance: "Campagne San Pedro", statut: "En attente" },
 ];
 
 export const rdvByStatus = [

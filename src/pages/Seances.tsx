@@ -25,7 +25,7 @@ const Seances = () => {
   const [newItemCout, setNewItemCout] = useState("");
 
   const filtered = recentCampaigns.filter(
-    (c) => c.nom.toLowerCase().includes(search.toLowerCase()) || c.region.toLowerCase().includes(search.toLowerCase())
+    (c) => c.nom.toLowerCase().includes(search.toLowerCase()) || c.zone.toLowerCase().includes(search.toLowerCase())
   );
 
   const stats = {
@@ -226,22 +226,28 @@ const Seances = () => {
           <table className="w-full text-sm">
             <thead>
               <tr className="border-b border-dashboard-border text-dashboard-card-foreground/50">
-                <th className="text-left py-3 px-2 font-medium">Séance</th>
+                <th className="text-left py-3 px-2 font-medium">Nom</th>
+                <th className="text-left py-3 px-2 font-medium">Objectifs</th>
                 <th className="text-left py-3 px-2 font-medium">Zone</th>
-                <th className="text-left py-3 px-2 font-medium">Agent</th>
-                <th className="text-left py-3 px-2 font-medium">Date</th>
-                <th className="text-right py-3 px-2 font-medium">Participants</th>
+                <th className="text-right py-3 px-2 font-medium">Obj. participants</th>
+                <th className="text-left py-3 px-2 font-medium">Organisateur</th>
+                <th className="text-left py-3 px-2 font-medium">Date prévue</th>
+                <th className="text-left py-3 px-2 font-medium">Début</th>
+                <th className="text-left py-3 px-2 font-medium">Fin</th>
                 <th className="text-center py-3 px-2 font-medium">Statut</th>
               </tr>
             </thead>
             <tbody>
               {filtered.map((c) => (
                 <tr key={c.id} className="border-b border-dashboard-border/50 hover:bg-dashboard-card/50 transition-colors">
-                  <td className="py-3 px-2 text-dashboard-card-foreground font-medium">{c.nom}</td>
-                  <td className="py-3 px-2 text-dashboard-card-foreground/70">{c.region}</td>
-                  <td className="py-3 px-2 text-dashboard-card-foreground/70">{c.agent}</td>
-                  <td className="py-3 px-2 text-dashboard-card-foreground/70">{c.date}</td>
-                  <td className="py-3 px-2 text-right text-dashboard-card-foreground font-semibold">{c.participants}</td>
+                  <td className="py-3 px-2 text-dashboard-card-foreground font-medium whitespace-nowrap">{c.nom}</td>
+                  <td className="py-3 px-2 text-dashboard-card-foreground/70 text-xs max-w-[200px] truncate">{c.objectifs}</td>
+                  <td className="py-3 px-2 text-dashboard-card-foreground/70">{c.zone}</td>
+                  <td className="py-3 px-2 text-right text-dashboard-card-foreground font-semibold">{c.objectifParticipants}</td>
+                  <td className="py-3 px-2 text-dashboard-card-foreground/70">{c.organisateur}</td>
+                  <td className="py-3 px-2 text-dashboard-card-foreground/70 whitespace-nowrap">{c.datePrevue}</td>
+                  <td className="py-3 px-2 text-dashboard-card-foreground/70">{c.heureDebut}</td>
+                  <td className="py-3 px-2 text-dashboard-card-foreground/70">{c.heureFin}</td>
                   <td className="py-3 px-2 text-center">
                     <span className={`text-xs font-semibold px-2.5 py-1 rounded-full ${statusColor[c.statut]}`}>{c.statut}</span>
                   </td>
