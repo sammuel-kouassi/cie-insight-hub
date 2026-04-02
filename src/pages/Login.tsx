@@ -18,7 +18,7 @@ const Login = () => {
       return;
     }
     // Static login — no backend
-    navigate("/");
+    navigate("/dashboard");
   };
 
   return (
