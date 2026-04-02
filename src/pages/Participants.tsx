@@ -13,8 +13,8 @@ const Participants = () => {
   const filtered = participantsList.filter(
     (p) =>
       p.nom.toLowerCase().includes(search.toLowerCase()) ||
-      p.region.toLowerCase().includes(search.toLowerCase()) ||
-      p.type.toLowerCase().includes(search.toLowerCase())
+      p.prenom.toLowerCase().includes(search.toLowerCase()) ||
+      p.localite.toLowerCase().includes(search.toLowerCase())
   );
 
   return (
@@ -29,7 +29,6 @@ const Participants = () => {
         </p>
       </motion.div>
 
-      {/* Charts */}
       <div className="grid lg:grid-cols-2 gap-4">
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} className="glass-card rounded-xl p-5">
           <h3 className="text-sm font-semibold text-dashboard-card-foreground mb-4" style={{ fontFamily: "Outfit" }}>Répartition par Typologie</h3>
@@ -89,22 +88,30 @@ const Participants = () => {
             <thead>
               <tr className="border-b border-dashboard-border text-dashboard-card-foreground/50">
                 <th className="text-left py-3 px-2 font-medium">Nom</th>
-                <th className="text-left py-3 px-2 font-medium">Type</th>
-                <th className="text-left py-3 px-2 font-medium">Région</th>
+                <th className="text-left py-3 px-2 font-medium">Prénom</th>
                 <th className="text-left py-3 px-2 font-medium">Téléphone</th>
-                <th className="text-left py-3 px-2 font-medium">Date</th>
-                <th className="text-left py-3 px-2 font-medium">Campagne</th>
+                <th className="text-left py-3 px-2 font-medium">Profession</th>
+                <th className="text-left py-3 px-2 font-medium">Statut logement</th>
+                <th className="text-left py-3 px-2 font-medium">Lieu</th>
+                <th className="text-left py-3 px-2 font-medium">Localité</th>
+                <th className="text-left py-3 px-2 font-medium">Quartier</th>
+                <th className="text-left py-3 px-2 font-medium">Séance</th>
+                <th className="text-left py-3 px-2 font-medium">Besoin exprimé</th>
               </tr>
             </thead>
             <tbody>
               {filtered.map((p) => (
                 <tr key={p.id} className="border-b border-dashboard-border/50 hover:bg-dashboard-card/50 transition-colors">
                   <td className="py-3 px-2 text-dashboard-card-foreground font-medium">{p.nom}</td>
-                  <td className="py-3 px-2 text-dashboard-card-foreground/70">{p.type}</td>
-                  <td className="py-3 px-2 text-dashboard-card-foreground/70">{p.region}</td>
+                  <td className="py-3 px-2 text-dashboard-card-foreground/70">{p.prenom}</td>
                   <td className="py-3 px-2 text-dashboard-card-foreground/70">{p.telephone}</td>
-                  <td className="py-3 px-2 text-dashboard-card-foreground/70">{p.date}</td>
-                  <td className="py-3 px-2 text-dashboard-card-foreground/70">{p.campagne}</td>
+                  <td className="py-3 px-2 text-dashboard-card-foreground/70">{p.profession}</td>
+                  <td className="py-3 px-2 text-dashboard-card-foreground/70">{p.statutLogement}</td>
+                  <td className="py-3 px-2 text-dashboard-card-foreground/70">{p.lieuHabitation}</td>
+                  <td className="py-3 px-2 text-dashboard-card-foreground/70">{p.localite}</td>
+                  <td className="py-3 px-2 text-dashboard-card-foreground/70">{p.quartier}</td>
+                  <td className="py-3 px-2 text-dashboard-card-foreground/70">{p.seance}</td>
+                  <td className="py-3 px-2 text-dashboard-card-foreground/70">{p.besoinExprime}</td>
                 </tr>
               ))}
             </tbody>

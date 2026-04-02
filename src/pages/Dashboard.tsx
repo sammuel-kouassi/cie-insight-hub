@@ -10,12 +10,11 @@ import {
   participantsByRegion,
   participantsByType,
   recentCampaigns,
-  weeklyActivity,
 } from "@/data/mockData";
 
 const kpis = [
   { title: "Total Participants", value: "10,420", change: "+12.5%", changeType: "up" as const, icon: Users },
-  { title: "Campagnes Actives", value: "23", change: "+3 ce mois", changeType: "up" as const, icon: Megaphone },
+  { title: "Séances Actives", value: "23", change: "+3 ce mois", changeType: "up" as const, icon: Megaphone },
   { title: "Prises de Contact", value: "1,847", change: "+8.2%", changeType: "up" as const, icon: Phone },
   { title: "Gadgets Distribués", value: "3,550", change: "-5% stock", changeType: "down" as const, icon: Gift },
 ];
@@ -29,13 +28,12 @@ const statusColor: Record<string, string> = {
 const Dashboard = () => {
   return (
     <div className="space-y-6">
-      {/* Title */}
       <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
         <h1 className="text-2xl font-bold text-dashboard-card-foreground" style={{ fontFamily: 'Outfit' }}>
           Tableau de bord
         </h1>
         <p className="text-sm text-dashboard-card-foreground/50">
-          Vue d'ensemble des campagnes de sensibilisation
+          Vue d'ensemble des séances de sensibilisation
         </p>
       </motion.div>
 
@@ -48,7 +46,7 @@ const Dashboard = () => {
 
       {/* Charts row 1 */}
       <div className="grid lg:grid-cols-3 gap-4">
-        {/* Area chart */}
+        {/* Area chart - Évolution Mensuelle with objectif + participants */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -62,18 +60,20 @@ const Dashboard = () => {
             <AreaChart data={monthlyParticipants}>
               <defs>
                 <linearGradient id="gradParticipants" x1="0" y1="0" x2="0" y2="1">
-                 <stop offset="0%" stopColor="hsl(152, 60%, 45%)" stopOpacity={0.4} />
+                  <stop offset="0%" stopColor="hsl(152, 60%, 45%)" stopOpacity={0.4} />
                   <stop offset="100%" stopColor="hsl(152, 60%, 45%)" stopOpacity={0} />
+                </linearGradient>
+                <linearGradient id="gradObjectif" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stopColor="hsl(24, 100%, 50%)" stopOpacity={0.2} />
+                  <stop offset="100%" stopColor="hsl(24, 100%, 50%)" stopOpacity={0} />
                 </linearGradient>
               </defs>
               <CartesianGrid strokeDasharray="3 3" stroke="hsla(220, 13%, 91%, 0.8)" />
               <XAxis dataKey="month" tick={{ fill: 'hsl(220, 10%, 55%)', fontSize: 12 }} axisLine={false} />
               <YAxis tick={{ fill: 'hsl(220, 10%, 55%)', fontSize: 12 }} axisLine={false} />
-              <Tooltip
-                contentStyle={{ background: '#fff', border: '1px solid hsl(220, 13%, 91%)', borderRadius: 8, color: 'hsl(220, 20%, 14%)' }}
-              />
-              <Area type="monotone" dataKey="participants" stroke="hsl(152, 60%, 45%)" fill="url(#gradParticipants)" strokeWidth={2} />
-              <Area type="monotone" dataKey="campagnes" stroke="hsl(152, 60%, 45%)" fill="transparent" strokeWidth={2} strokeDasharray="5 5" />
+              <Tooltip contentStyle={{ background: '#fff', border: '1px solid hsl(220, 13%, 91%)', borderRadius: 8, color: 'hsl(220, 20%, 14%)' }} />
+              <Area type="monotone" dataKey="participants" stroke="hsl(152, 60%, 45%)" fill="url(#gradParticipants)" strokeWidth={2} name="Participants enregistrés" />
+              <Area type="monotone" dataKey="objectif" stroke="hsl(24, 100%, 50%)" fill="url(#gradObjectif)" strokeWidth={2} strokeDasharray="5 5" name="Objectif proraté" />
               <Legend />
             </AreaChart>
           </ResponsiveContainer>
@@ -113,73 +113,47 @@ const Dashboard = () => {
         </motion.div>
       </div>
 
-      {/* Charts row 2 */}
-      <div className="grid lg:grid-cols-2 gap-4">
-        {/* Bar chart - by region */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.5 }}
-          className="glass-card rounded-xl p-5"
-        >
-          <h3 className="text-sm font-semibold text-dashboard-card-foreground mb-4 flex items-center gap-2" style={{ fontFamily: 'Outfit' }}>
-            <MapPin className="w-4 h-4 text-primary" /> Participants par Région
-          </h3>
-          <ResponsiveContainer width="100%" height={260}>
-            <BarChart data={participantsByRegion} layout="vertical">
-              <CartesianGrid strokeDasharray="3 3" stroke="hsla(220, 13%, 91%, 0.8)" />
-              <XAxis type="number" tick={{ fill: 'hsl(220, 10%, 55%)', fontSize: 12 }} axisLine={false} />
-              <YAxis dataKey="region" type="category" tick={{ fill: 'hsl(220, 10%, 55%)', fontSize: 12 }} axisLine={false} width={100} />
-              <Tooltip contentStyle={{ background: '#fff', border: '1px solid hsl(220, 13%, 91%)', borderRadius: 8, color: 'hsl(220, 20%, 14%)' }} />
-              <Bar dataKey="participants" radius={[0, 6, 6, 0]}>
-                {participantsByRegion.map((entry, i) => (
-                  <Cell key={i} fill={entry.fill} />
-                ))}
-              </Bar>
-            </BarChart>
-          </ResponsiveContainer>
-        </motion.div>
-
-        {/* Bar chart - weekly */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.6 }}
-          className="glass-card rounded-xl p-5"
-        >
-          <h3 className="text-sm font-semibold text-dashboard-card-foreground mb-4" style={{ fontFamily: 'Outfit' }}>
-            Activité Hebdomadaire
-          </h3>
-          <ResponsiveContainer width="100%" height={260}>
-            <BarChart data={weeklyActivity}>
-              <CartesianGrid strokeDasharray="3 3" stroke="hsla(220, 13%, 91%, 0.8)" />
-              <XAxis dataKey="jour" tick={{ fill: 'hsl(220, 10%, 55%)', fontSize: 12 }} axisLine={false} />
-              <YAxis tick={{ fill: 'hsl(220, 10%, 55%)', fontSize: 12 }} axisLine={false} />
-              <Tooltip contentStyle={{ background: '#fff', border: '1px solid hsl(220, 13%, 91%)', borderRadius: 8, color: 'hsl(220, 20%, 14%)' }} />
-              <Bar dataKey="inscriptions" fill="hsl(152, 60%, 45%)" radius={[4, 4, 0, 0]} />
-              <Bar dataKey="contacts" fill="hsl(210, 100%, 56%)" radius={[4, 4, 0, 0]} />
-              <Legend />
-            </BarChart>
-          </ResponsiveContainer>
-        </motion.div>
-      </div>
+      {/* Bar chart - by region (full width) */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.5 }}
+        className="glass-card rounded-xl p-5"
+      >
+        <h3 className="text-sm font-semibold text-dashboard-card-foreground mb-4 flex items-center gap-2" style={{ fontFamily: 'Outfit' }}>
+          <MapPin className="w-4 h-4 text-primary" /> Participants par Région
+        </h3>
+        <ResponsiveContainer width="100%" height={260}>
+          <BarChart data={participantsByRegion} layout="vertical">
+            <CartesianGrid strokeDasharray="3 3" stroke="hsla(220, 13%, 91%, 0.8)" />
+            <XAxis type="number" tick={{ fill: 'hsl(220, 10%, 55%)', fontSize: 12 }} axisLine={false} />
+            <YAxis dataKey="region" type="category" tick={{ fill: 'hsl(220, 10%, 55%)', fontSize: 12 }} axisLine={false} width={100} />
+            <Tooltip contentStyle={{ background: '#fff', border: '1px solid hsl(220, 13%, 91%)', borderRadius: 8, color: 'hsl(220, 20%, 14%)' }} />
+            <Bar dataKey="participants" radius={[0, 6, 6, 0]}>
+              {participantsByRegion.map((entry, i) => (
+                <Cell key={i} fill={entry.fill} />
+              ))}
+            </Bar>
+          </BarChart>
+        </ResponsiveContainer>
+      </motion.div>
 
       {/* Recent campaigns table */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.7 }}
+        transition={{ delay: 0.6 }}
         className="glass-card rounded-xl p-5"
       >
         <h3 className="text-sm font-semibold text-dashboard-card-foreground mb-4" style={{ fontFamily: 'Outfit' }}>
-          Campagnes Récentes
+          Séances Récentes
         </h3>
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
               <tr className="border-b border-dashboard-border text-dashboard-card-foreground/50">
-                <th className="text-left py-3 px-2 font-medium">Campagne</th>
-                <th className="text-left py-3 px-2 font-medium">Région</th>
+                <th className="text-left py-3 px-2 font-medium">Séance</th>
+                <th className="text-left py-3 px-2 font-medium">Zone</th>
                 <th className="text-left py-3 px-2 font-medium">Agent</th>
                 <th className="text-left py-3 px-2 font-medium">Date</th>
                 <th className="text-right py-3 px-2 font-medium">Participants</th>

@@ -6,10 +6,10 @@ import heroImage from "@/assets/hero-campaign.jpg";
 
 const features = [
   { icon: Smartphone, title: "Collecte Mobile", desc: "Enregistrement terrain en mode hors ligne avec synchronisation automatique" },
-  { icon: Users, title: "Gestion Participants", desc: "Suivi complet des participants aux campagnes de sensibilisation" },
+  { icon: Users, title: "Gestion Participants", desc: "Suivi complet des participants aux séances de sensibilisation" },
   { icon: BarChart3, title: "Statistiques Avancées", desc: "Tableaux de bord dynamiques avec KPI et graphiques interactifs" },
   { icon: Shield, title: "Données Sécurisées", desc: "Protection des données personnelles avec consentement obligatoire" },
-  { icon: Map, title: "Cartographie", desc: "Traçabilité des campagnes sur la carte de la Côte d'Ivoire en temps réel" },
+  { icon: Map, title: "Cartographie", desc: "Traçabilité des séances sur la carte de la Côte d'Ivoire en temps réel" },
   { icon: Globe, title: "Multi-Régions", desc: "Couverture de toutes les directions régionales et agences" },
 ];
 
@@ -17,7 +17,7 @@ const stats = [
   { value: "12+", label: "Directions Régionales" },
   { value: "50+", label: "Agents Terrain" },
   { value: "10K+", label: "Participants Enregistrés" },
-  { value: "200+", label: "Campagnes Réalisées" },
+  { value: "200+", label: "Séances Réalisées" },
 ];
 
 const fadeUp = {
@@ -33,13 +33,15 @@ const Landing = () => {
         <div className="container mx-auto flex items-center justify-between h-16 px-4">
           <div className="flex items-center gap-2">
             <span className="font-bold text-lg tracking-tight" style={{ fontFamily: 'Outfit' }}>
-              GS2E <span className="text-gradient-green-orange">Sensibilisation</span>
+              <span className="text-primary">DLF</span>
+              <span className="text-muted-foreground mx-1">|</span>
+              <span className="text-accent">Sensibilisation</span>
             </span>
           </div>
           <div className="flex items-center gap-3">
-            <Link to="/dashboard">
+            <Link to="/login">
               <Button variant="default" size="sm">
-                Tableau de bord <ArrowRight className="ml-1 w-4 h-4" />
+                Se connecter <ArrowRight className="ml-1 w-4 h-4" />
               </Button>
             </Link>
           </div>
@@ -49,7 +51,7 @@ const Landing = () => {
       {/* Hero */}
       <section className="relative pt-16 overflow-hidden">
         <div className="absolute inset-0">
-          <img src={heroImage} alt="Campagne de sensibilisation GS2E" className="w-full h-full object-cover" />
+          <img src={heroImage} alt="Séance de sensibilisation DLF" className="w-full h-full object-cover" />
           <div className="absolute inset-0 bg-gradient-to-r from-foreground/90 via-foreground/70 to-foreground/40" />
         </div>
         <div className="relative container mx-auto px-4 py-32 md:py-44">
@@ -61,18 +63,18 @@ const Landing = () => {
           >
             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/20 border border-primary/30 mb-6">
               <div className="w-2 h-2 rounded-full bg-primary animate-pulse" />
-              <span className="text-sm font-medium text-primary-foreground/90">Plateforme Digitale GS2E</span>
+              <span className="text-sm font-medium text-primary-foreground/90">Plateforme Digitale DLF</span>
             </div>
             <h1 className="text-4xl md:text-6xl font-extrabold text-primary-foreground leading-tight mb-6" style={{ fontFamily: 'Outfit' }}>
               Gestion des{" "}
-              <span className="text-accent">Campagnes</span> de{" "}
+              <span className="text-accent">Séances</span> de{" "}
               <span className="text-primary">Sensibilisation</span>
             </h1>
             <p className="text-lg text-primary-foreground/70 mb-8 max-w-xl">
-              Digitalisez vos campagnes terrain, gérez vos participants et suivez vos KPI en temps réel grâce à notre plateforme intégrée.
+              Digitalisez vos séances terrain, gérez vos participants et suivez vos KPI en temps réel grâce à notre plateforme intégrée.
             </p>
             <div className="flex gap-3 flex-wrap">
-              <Link to="/dashboard">
+              <Link to="/login">
                 <Button size="lg" className="font-semibold text-base px-8">
                   Accéder au Dashboard <ArrowRight className="ml-2 w-5 h-5" />
                 </Button>
@@ -113,7 +115,7 @@ const Landing = () => {
             <h2 className="text-3xl md:text-4xl font-bold mb-3" style={{ fontFamily: 'Outfit' }}>
               Fonctionnalités <span className="text-primary">Clés</span>
             </h2>
-            <p className="text-muted-foreground max-w-lg mx-auto">Une solution complète pour la gestion de vos campagnes de sensibilisation</p>
+            <p className="text-muted-foreground max-w-lg mx-auto">Une solution complète pour la gestion de vos séances de sensibilisation</p>
           </motion.div>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {features.map((f, i) => (
@@ -141,12 +143,13 @@ const Landing = () => {
       <footer className="border-t py-10 bg-secondary/30">
         <div className="container mx-auto px-4 text-center">
           <div className="flex items-center justify-center gap-2 mb-3">
-            <div className="w-7 h-7 rounded-lg gradient-green-orange flex items-center justify-center">
-              <Zap className="w-4 h-4 text-primary-foreground" />
-            </div>
-            <span className="font-bold" style={{ fontFamily: 'Outfit' }}>GS2E Sensibilisation</span>
+            <span className="font-bold" style={{ fontFamily: 'Outfit' }}>
+              <span className="text-primary">DLF</span>
+              <span className="text-muted-foreground mx-1">|</span>
+              <span className="text-accent">Sensibilisation</span>
+            </span>
           </div>
-          <p className="text-sm text-muted-foreground">© 2025 GS2E — Gestion des Sensibilisations. Tous droits réservés.</p>
+          <p className="text-sm text-muted-foreground">© 2025 DLF — Gestion des Sensibilisations. Tous droits réservés.</p>
         </div>
       </footer>
     </div>
