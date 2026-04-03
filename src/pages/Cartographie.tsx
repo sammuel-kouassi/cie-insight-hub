@@ -236,9 +236,19 @@ const Cartographie = () => {
 
       <div className="grid lg:grid-cols-4 gap-4">
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="glass-card rounded-xl p-5">
-          <h3 className="text-sm font-semibold text-dashboard-card-foreground mb-4" style={{ fontFamily: "Outfit" }}>
-            Légende
+          <h3 className="text-sm font-semibold text-dashboard-card-foreground mb-3" style={{ fontFamily: "Outfit" }}>
+            Filtres & Légende
           </h3>
+          <div className="relative mb-4">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-dashboard-card-foreground/40" />
+            <input
+              type="text"
+              placeholder="Rechercher une séance, ville..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="w-full pl-9 pr-3 py-2 text-sm rounded-lg border border-dashboard-border bg-white text-dashboard-card-foreground placeholder:text-dashboard-card-foreground/40 focus:outline-none focus:ring-2 focus:ring-primary/30"
+            />
+          </div>
           <div className="space-y-3">
             {Object.entries(statusConfig).map(([status, cfg]) => {
               const count = campaignLocations.filter((c) => c.statut === status).length;
