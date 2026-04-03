@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
-import { Map, MapPin, Info } from "lucide-react";
+import { Map, MapPin, Info, Search } from "lucide-react";
 import { campaignLocations, campaignRoute, CampaignLocation } from "@/data/mockData";
 import "leaflet/dist/leaflet.css";
 
@@ -42,12 +42,31 @@ const coteIvoireBoundary = {
 const Cartographie = () => {
   const mapRef = useRef<HTMLDivElement>(null);
   const mapInstanceRef = useRef<any>(null);
+  const markersRef = useRef<{ loc: CampaignLocation; marker: any }[]>([]);
   const [selected, setSelected] = useState<CampaignLocation | null>(null);
   const [legendFilter, setLegendFilter] = useState<string | null>(null);
+  const [searchQuery, setSearchQuery] = useState("");
 
-  const filtered = legendFilter
-    ? campaignLocations.filter((c) => c.statut === legendFilter)
-    : campaignLocations;
+  const filtered = campaignLocations.filter((c) => {
+    const matchStatus = !legendFilter || c.statut === legendFilter;
+    const matchSearch = !searchQuery || 
+      c.nom.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      c.ville.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      c.agent.toLowerCase().includes(searchQuery.toLowerCase());
+    return matchStatus && matchSearch;
+  });
+
+  // Update marker visibility when filter/search changes
+  useEffect(() => {
+    markersRef.current.forEach(({ loc, marker }) => {
+      const visible = filtered.some((f) => f.id === loc.id);
+      if (visible) {
+        marker.getElement()?.style && (marker.getElement().style.display = "");
+      } else {
+        marker.getElement()?.style && (marker.getElement().style.display = "none");
+      }
+    });
+  }, [legendFilter, searchQuery]);
 
   useEffect(() => {
     if (!mapRef.current || mapInstanceRef.current) return;
@@ -55,7 +74,6 @@ const Cartographie = () => {
     const initMap = async () => {
       const L = await import("leaflet");
 
-      // Bounds of Côte d'Ivoire
       const civBounds = L.default.latLngBounds(
         L.default.latLng(4.1, -8.7),
         L.default.latLng(10.8, -2.5)
@@ -66,29 +84,18 @@ const Cartographie = () => {
         zoom: 7,
         zoomControl: true,
         scrollWheelZoom: true,
-        maxBounds: civBounds.pad(0.1),
+        maxBounds: civBounds.pad(0.05),
         maxBoundsViscosity: 1.0,
         minZoom: 6,
-        maxZoom: 12,
+        maxZoom: 16,
       });
 
-      L.default.tileLayer("https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png", {
-        attribution: '© <a href="https://www.openstreetmap.org/copyright">OSM</a> © <a href="https://carto.com/">CARTO</a>',
+      L.default.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
         maxZoom: 19,
       }).addTo(map);
 
-      // Draw Côte d'Ivoire border
-      L.default.geoJSON(coteIvoireBoundary as any, {
-        style: {
-          color: "hsl(152, 60%, 45%)",
-          weight: 2.5,
-          fillColor: "hsl(152, 60%, 90%)",
-          fillOpacity: 0.15,
-          dashArray: "",
-        },
-      }).addTo(map);
-
-      // Mask outside Côte d'Ivoire
+      // Mask everything outside Côte d'Ivoire
       const outerBounds: [number, number][] = [
         [-90, -180], [-90, 180], [90, 180], [90, -180], [-90, -180],
       ];
@@ -97,15 +104,25 @@ const Cartographie = () => {
       );
       L.default.polygon([outerBounds, ciCoords], {
         color: "transparent",
-        fillColor: "#f0f0f0",
-        fillOpacity: 0.85,
+        fillColor: "#ffffff",
+        fillOpacity: 1,
         interactive: false,
+      }).addTo(map);
+
+      // Subtle border
+      L.default.geoJSON(coteIvoireBoundary as any, {
+        style: {
+          color: "hsl(152, 50%, 55%)",
+          weight: 1.5,
+          fillColor: "transparent",
+          fillOpacity: 0,
+        },
       }).addTo(map);
 
       map.fitBounds(civBounds, { padding: [20, 20] });
       mapInstanceRef.current = map;
 
-      // Draw route lines
+      // Route lines
       const routeCoords = campaignRoute.map((id) => {
         const loc = campaignLocations.find((c) => c.id === id)!;
         return [loc.lat, loc.lng] as [number, number];
@@ -132,7 +149,8 @@ const Cartographie = () => {
         }).addTo(map);
       }
 
-      // Add markers
+      // Add markers and store refs
+      const markers: { loc: CampaignLocation; marker: any }[] = [];
       campaignLocations.forEach((loc) => {
         const cfg = statusConfig[loc.statut];
         const isBlinking = cfg.glow;
@@ -162,6 +180,7 @@ const Cartographie = () => {
         });
 
         const marker = L.default.marker([loc.lat, loc.lng], { icon }).addTo(map);
+        markers.push({ loc, marker });
 
         marker.bindTooltip(
           `<div style="font-family: Outfit, sans-serif; font-weight: 600;">${loc.nom}</div>
@@ -173,6 +192,7 @@ const Cartographie = () => {
           setSelected(loc);
         });
       });
+      markersRef.current = markers;
 
       const style = document.createElement("style");
       style.textContent = `
@@ -216,9 +236,19 @@ const Cartographie = () => {
 
       <div className="grid lg:grid-cols-4 gap-4">
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="glass-card rounded-xl p-5">
-          <h3 className="text-sm font-semibold text-dashboard-card-foreground mb-4" style={{ fontFamily: "Outfit" }}>
-            Légende
+          <h3 className="text-sm font-semibold text-dashboard-card-foreground mb-3" style={{ fontFamily: "Outfit" }}>
+            Filtres & Légende
           </h3>
+          <div className="relative mb-4">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-dashboard-card-foreground/40" />
+            <input
+              type="text"
+              placeholder="Rechercher une séance, ville..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="w-full pl-9 pr-3 py-2 text-sm rounded-lg border border-dashboard-border bg-white text-dashboard-card-foreground placeholder:text-dashboard-card-foreground/40 focus:outline-none focus:ring-2 focus:ring-primary/30"
+            />
+          </div>
           <div className="space-y-3">
             {Object.entries(statusConfig).map(([status, cfg]) => {
               const count = campaignLocations.filter((c) => c.statut === status).length;
