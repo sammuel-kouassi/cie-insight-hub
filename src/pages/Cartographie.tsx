@@ -66,29 +66,19 @@ const Cartographie = () => {
         zoom: 7,
         zoomControl: true,
         scrollWheelZoom: true,
-        maxBounds: civBounds.pad(0.1),
+        maxBounds: civBounds.pad(0.05),
         maxBoundsViscosity: 1.0,
         minZoom: 6,
-        maxZoom: 12,
+        maxZoom: 16,
       });
 
-      L.default.tileLayer("https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png", {
-        attribution: '© <a href="https://www.openstreetmap.org/copyright">OSM</a> © <a href="https://carto.com/">CARTO</a>',
+      // Use OpenStreetMap tiles for village-level detail
+      L.default.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
         maxZoom: 19,
       }).addTo(map);
 
-      // Draw Côte d'Ivoire border
-      L.default.geoJSON(coteIvoireBoundary as any, {
-        style: {
-          color: "hsl(152, 60%, 45%)",
-          weight: 2.5,
-          fillColor: "hsl(152, 60%, 90%)",
-          fillOpacity: 0.15,
-          dashArray: "",
-        },
-      }).addTo(map);
-
-      // Mask outside Côte d'Ivoire
+      // Mask everything outside Côte d'Ivoire (fully opaque white)
       const outerBounds: [number, number][] = [
         [-90, -180], [-90, 180], [90, 180], [90, -180], [-90, -180],
       ];
@@ -97,9 +87,20 @@ const Cartographie = () => {
       );
       L.default.polygon([outerBounds, ciCoords], {
         color: "transparent",
-        fillColor: "#f0f0f0",
-        fillOpacity: 0.85,
+        fillColor: "#ffffff",
+        fillOpacity: 1,
         interactive: false,
+      }).addTo(map);
+
+      // Subtle border for CI shape
+      L.default.geoJSON(coteIvoireBoundary as any, {
+        style: {
+          color: "hsl(152, 50%, 55%)",
+          weight: 1.5,
+          fillColor: "transparent",
+          fillOpacity: 0,
+          dashArray: "",
+        },
       }).addTo(map);
 
       map.fitBounds(civBounds, { padding: [20, 20] });
