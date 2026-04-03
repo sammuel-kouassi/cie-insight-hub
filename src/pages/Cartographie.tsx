@@ -42,12 +42,31 @@ const coteIvoireBoundary = {
 const Cartographie = () => {
   const mapRef = useRef<HTMLDivElement>(null);
   const mapInstanceRef = useRef<any>(null);
+  const markersRef = useRef<{ loc: CampaignLocation; marker: any }[]>([]);
   const [selected, setSelected] = useState<CampaignLocation | null>(null);
   const [legendFilter, setLegendFilter] = useState<string | null>(null);
+  const [searchQuery, setSearchQuery] = useState("");
 
-  const filtered = legendFilter
-    ? campaignLocations.filter((c) => c.statut === legendFilter)
-    : campaignLocations;
+  const filtered = campaignLocations.filter((c) => {
+    const matchStatus = !legendFilter || c.statut === legendFilter;
+    const matchSearch = !searchQuery || 
+      c.nom.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      c.ville.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      c.agent.toLowerCase().includes(searchQuery.toLowerCase());
+    return matchStatus && matchSearch;
+  });
+
+  // Update marker visibility when filter/search changes
+  useEffect(() => {
+    markersRef.current.forEach(({ loc, marker }) => {
+      const visible = filtered.some((f) => f.id === loc.id);
+      if (visible) {
+        marker.getElement()?.style && (marker.getElement().style.display = "");
+      } else {
+        marker.getElement()?.style && (marker.getElement().style.display = "none");
+      }
+    });
+  }, [legendFilter, searchQuery]);
 
   useEffect(() => {
     if (!mapRef.current || mapInstanceRef.current) return;
@@ -55,7 +74,6 @@ const Cartographie = () => {
     const initMap = async () => {
       const L = await import("leaflet");
 
-      // Bounds of Côte d'Ivoire
       const civBounds = L.default.latLngBounds(
         L.default.latLng(4.1, -8.7),
         L.default.latLng(10.8, -2.5)
@@ -72,13 +90,12 @@ const Cartographie = () => {
         maxZoom: 16,
       });
 
-      // Use OpenStreetMap tiles for village-level detail
       L.default.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
         attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
         maxZoom: 19,
       }).addTo(map);
 
-      // Mask everything outside Côte d'Ivoire (fully opaque white)
+      // Mask everything outside Côte d'Ivoire
       const outerBounds: [number, number][] = [
         [-90, -180], [-90, 180], [90, 180], [90, -180], [-90, -180],
       ];
@@ -92,21 +109,20 @@ const Cartographie = () => {
         interactive: false,
       }).addTo(map);
 
-      // Subtle border for CI shape
+      // Subtle border
       L.default.geoJSON(coteIvoireBoundary as any, {
         style: {
           color: "hsl(152, 50%, 55%)",
           weight: 1.5,
           fillColor: "transparent",
           fillOpacity: 0,
-          dashArray: "",
         },
       }).addTo(map);
 
       map.fitBounds(civBounds, { padding: [20, 20] });
       mapInstanceRef.current = map;
 
-      // Draw route lines
+      // Route lines
       const routeCoords = campaignRoute.map((id) => {
         const loc = campaignLocations.find((c) => c.id === id)!;
         return [loc.lat, loc.lng] as [number, number];
@@ -133,7 +149,8 @@ const Cartographie = () => {
         }).addTo(map);
       }
 
-      // Add markers
+      // Add markers and store refs
+      const markers: { loc: CampaignLocation; marker: any }[] = [];
       campaignLocations.forEach((loc) => {
         const cfg = statusConfig[loc.statut];
         const isBlinking = cfg.glow;
@@ -163,6 +180,7 @@ const Cartographie = () => {
         });
 
         const marker = L.default.marker([loc.lat, loc.lng], { icon }).addTo(map);
+        markers.push({ loc, marker });
 
         marker.bindTooltip(
           `<div style="font-family: Outfit, sans-serif; font-weight: 600;">${loc.nom}</div>
@@ -174,6 +192,7 @@ const Cartographie = () => {
           setSelected(loc);
         });
       });
+      markersRef.current = markers;
 
       const style = document.createElement("style");
       style.textContent = `
