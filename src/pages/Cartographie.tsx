@@ -103,6 +103,15 @@ const Cartographie = () => {
         interactive: false,
       }).addTo(map);
 
+      // Clean subtle border
+      L.default.geoJSON(coteIvoireBoundary as any, {
+        style: {
+          color: "#e2e8f0",
+          weight: 1.5,
+          fillColor: "transparent",
+          fillOpacity: 0,
+        },
+      }).addTo(map);
 
       map.fitBounds(civBounds, { padding: [20, 20] });
       mapInstanceRef.current = map;
