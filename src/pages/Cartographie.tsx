@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
-import { Map, MapPin, Info } from "lucide-react";
+import { Map, MapPin, Info, Search } from "lucide-react";
 import { campaignLocations, campaignRoute, CampaignLocation } from "@/data/mockData";
 import "leaflet/dist/leaflet.css";
 
