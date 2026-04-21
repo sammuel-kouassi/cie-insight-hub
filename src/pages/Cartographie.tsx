@@ -184,6 +184,10 @@ const Cartographie = () => {
 
         marker.on("click", () => {
           setSelected(loc);
+          map.flyTo([loc.lat, loc.lng], 13, {
+            animate: true,
+            duration: 1.2,
+          });
         });
       });
       markersRef.current = markers;
@@ -369,7 +373,15 @@ const Cartographie = () => {
                   <tr
                     key={c.id}
                     className="border-b border-dashboard-border/50 hover:bg-dashboard-card/50 transition-colors cursor-pointer"
-                    onClick={() => setSelected(c)}
+                    onClick={() => {
+                      setSelected(c);
+                      if (mapInstanceRef.current) {
+                        mapInstanceRef.current.flyTo([c.lat, c.lng], 13, {
+                          animate: true,
+                          duration: 1.2,
+                        });
+                      }
+                    }}
                   >
                     <td className="py-3 px-2">
                       <div className="w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold" style={{ background: cfg.color + "33", color: cfg.color }}>
