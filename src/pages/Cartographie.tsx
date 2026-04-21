@@ -184,6 +184,10 @@ const Cartographie = () => {
 
         marker.on("click", () => {
           setSelected(loc);
+          map.flyTo([loc.lat, loc.lng], 13, {
+            animate: true,
+            duration: 1.2,
+          });
         });
       });
       markersRef.current = markers;
