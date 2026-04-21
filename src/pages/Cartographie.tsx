@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { Map, MapPin, Info, Search } from "lucide-react";
 import { campaignLocations, campaignRoute, CampaignLocation } from "@/data/mockData";
+import { COTE_IVOIRE_RING } from "@/data/coteIvoireBoundary";
 import "leaflet/dist/leaflet.css";
 
 const statusConfig = {
@@ -10,26 +11,13 @@ const statusConfig = {
   "Planifiée": { color: "#9ca3af", label: "Planifiée", glow: false },
 };
 
-// Accurate GeoJSON boundary of Côte d'Ivoire
+// High-resolution boundary of Côte d'Ivoire (Natural Earth 10m, 1577 points)
 const coteIvoireBoundary = {
   type: "Feature" as const,
   properties: { name: "Côte d'Ivoire" },
   geometry: {
     type: "Polygon" as const,
-    coordinates: [[
-      [-2.8561, 4.9945], [-3.3111, 4.9843], [-4.0088, 5.1798], [-4.6499, 5.1683],
-      [-5.8345, 4.9937], [-6.5288, 4.7051], [-7.5189, 4.3383], [-7.7122, 4.3646],
-      [-7.6354, 5.1882], [-7.5397, 5.3133], [-7.5702, 5.7074], [-7.9937, 6.1262],
-      [-8.3113, 6.1930], [-8.6029, 6.4676], [-8.3855, 6.9118], [-8.4854, 7.3952],
-      [-8.4393, 7.6860], [-8.2807, 7.6872], [-8.2218, 8.1233], [-8.2990, 8.3164],
-      [-8.2035, 8.4555], [-7.8321, 8.5757], [-8.0791, 9.3762], [-8.3096, 9.7895],
-      [-8.2293, 10.1290], [-8.0299, 10.2065], [-7.8996, 10.2974], [-7.6228, 10.1472],
-      [-6.8505, 10.1390], [-6.6665, 10.4308], [-6.4940, 10.4113], [-6.2052, 10.5241],
-      [-6.0505, 10.0964], [-5.8169, 10.2226], [-5.4043, 10.3707], [-4.9547, 10.1527],
-      [-4.7799, 9.8220], [-4.3302, 9.6108], [-3.9804, 9.8623], [-3.5119, 9.9003],
-      [-2.8275, 9.6425], [-2.5622, 8.2196], [-2.9836, 7.3797], [-3.2444, 6.2505],
-      [-2.8107, 5.3891], [-2.8561, 4.9945],
-    ]],
+    coordinates: [COTE_IVOIRE_RING],
   },
 };
 
