@@ -315,6 +315,7 @@ const Seances = () => {
             <thead>
               <tr className="border-b border-dashboard-border text-dashboard-card-foreground/50">
                 <th className="text-left py-3 px-2 font-medium">Nom</th>
+                <th className="text-left py-3 px-2 font-medium">Type</th>
                 <th className="text-left py-3 px-2 font-medium">Motif</th>
                 <th className="text-left py-3 px-2 font-medium">Cible</th>
                 <th className="text-left py-3 px-2 font-medium">Zone</th>
