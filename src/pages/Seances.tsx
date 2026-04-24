@@ -17,6 +17,17 @@ const statusColor: Record<string, string> = {
 
 const zones = ["Abidjan", "Bouaké", "Yamoussoukro", "San Pedro", "Korhogo", "Daloa", "Man", "Gagnoa", "Abengourou"];
 
+const cibles = [
+  "Quartiers non structurés (ou quartiers péri urbain)",
+  "Quartiers Structurés",
+  "Groupes Ordonnés et Associations",
+  "Collectivités Territoriales",
+  "Administrations Publics et Privées",
+  "Structures CIE SODECI",
+  "Lieux de Cultes",
+  "Lieux publics (Marchés, Gares, ...)",
+];
+
 const Seances = () => {
   const [search, setSearch] = useState("");
   const [showForm, setShowForm] = useState(false);
