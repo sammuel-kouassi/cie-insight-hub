@@ -123,6 +123,17 @@ const Seances = () => {
                 </Select>
               </div>
               <div>
+                <label className="text-sm font-medium text-dashboard-card-foreground mb-1 block">Type de séance *</label>
+                <Select>
+                  <SelectTrigger className="bg-dashboard-card border-dashboard-border text-dashboard-card-foreground">
+                    <SelectValue placeholder="Sélectionner un type" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {typesSeance.map((t) => <SelectItem key={t} value={t}>{t}</SelectItem>)}
+                  </SelectContent>
+                </Select>
+              </div>
+              <div>
                 <label className="text-sm font-medium text-dashboard-card-foreground mb-1 block">Cible *</label>
                 <Select>
                   <SelectTrigger className="bg-dashboard-card border-dashboard-border text-dashboard-card-foreground">
