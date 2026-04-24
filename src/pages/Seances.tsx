@@ -333,6 +333,7 @@ const Seances = () => {
               {filtered.map((c) => (
                 <tr key={c.id} className="border-b border-dashboard-border/50 hover:bg-dashboard-card/50 transition-colors">
                   <td className="py-3 px-2 text-dashboard-card-foreground font-medium whitespace-nowrap">{c.nom}</td>
+                  <td className="py-3 px-2 text-dashboard-card-foreground/70 whitespace-nowrap">{c.typeSeance}</td>
                   <td className="py-3 px-2 text-dashboard-card-foreground/70 text-xs max-w-[200px] truncate">{c.motif}</td>
                   <td className="py-3 px-2 text-dashboard-card-foreground/70 text-xs max-w-[180px] truncate">{c.cible}</td>
                   <td className="py-3 px-2 text-dashboard-card-foreground/70">{c.zone}</td>
