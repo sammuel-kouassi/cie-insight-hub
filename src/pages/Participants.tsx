@@ -4,7 +4,7 @@ import {
   BarChart, Bar, PieChart, Pie, Cell,
   XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
 } from "recharts";
-import { participantsList, participantsByType, participantsByRegion } from "@/data/mockData";
+import { participantsList, participantsByCible, participantsByRegion } from "@/data/mockData";
 import { useState } from "react";
 import { Input } from "@/components/ui/input";
 
@@ -31,17 +31,17 @@ const Participants = () => {
 
       <div className="grid lg:grid-cols-2 gap-4">
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} className="glass-card rounded-xl p-5">
-          <h3 className="text-sm font-semibold text-dashboard-card-foreground mb-4" style={{ fontFamily: "Outfit" }}>Répartition par Typologie</h3>
+          <h3 className="text-sm font-semibold text-dashboard-card-foreground mb-4" style={{ fontFamily: "Outfit" }}>Répartition par Cible</h3>
           <ResponsiveContainer width="100%" height={220}>
             <PieChart>
-              <Pie data={participantsByType} dataKey="value" nameKey="name" cx="50%" cy="50%" innerRadius={50} outerRadius={80} paddingAngle={3}>
-                {participantsByType.map((e, i) => <Cell key={i} fill={e.fill} />)}
+              <Pie data={participantsByCible} dataKey="value" nameKey="name" cx="50%" cy="50%" innerRadius={50} outerRadius={80} paddingAngle={3}>
+                {participantsByCible.map((e, i) => <Cell key={i} fill={e.fill} />)}
               </Pie>
               <Tooltip contentStyle={{ background: "#fff", border: "1px solid hsl(220, 13%, 91%)", borderRadius: 8, color: "hsl(220, 20%, 14%)" }} />
             </PieChart>
           </ResponsiveContainer>
           <div className="space-y-1.5 mt-2">
-            {participantsByType.map((t) => (
+            {participantsByCible.map((t) => (
               <div key={t.name} className="flex items-center justify-between text-xs">
                 <div className="flex items-center gap-2">
                   <div className="w-2.5 h-2.5 rounded-full" style={{ background: t.fill }} />
