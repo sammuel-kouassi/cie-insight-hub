@@ -17,12 +17,39 @@ const statusColor: Record<string, string> = {
 
 const zones = ["Abidjan", "Bouaké", "Yamoussoukro", "San Pedro", "Korhogo", "Daloa", "Man", "Gagnoa", "Abengourou"];
 
+const cibles = [
+  "Quartiers non structurés (ou quartiers péri urbain)",
+  "Quartiers Structurés",
+  "Groupes Ordonnés et Associations",
+  "Collectivités Territoriales",
+  "Administrations Publics et Privées",
+  "Structures CIE SODECI",
+  "Lieux de Cultes",
+  "Lieux publics (Marchés, Gares, ...)",
+];
+
 const Seances = () => {
   const [search, setSearch] = useState("");
   const [showForm, setShowForm] = useState(false);
   const [logistiqueItems, setLogistiqueItems] = useState<{ nom: string; cout: number }[]>([]);
   const [newItem, setNewItem] = useState("");
   const [newItemCout, setNewItemCout] = useState("");
+  const [nbAssistants, setNbAssistants] = useState(0);
+  const [assistants, setAssistants] = useState<string[]>([]);
+
+  const handleNbAssistantsChange = (value: string) => {
+    const n = Math.max(0, Math.min(20, Number(value) || 0));
+    setNbAssistants(n);
+    setAssistants((prev) => {
+      const next = [...prev];
+      if (n > prev.length) {
+        for (let i = prev.length; i < n; i++) next.push("");
+      } else {
+        next.length = n;
+      }
+      return next;
+    });
+  };
 
   const filtered = recentCampaigns.filter(
     (c) => c.nom.toLowerCase().includes(search.toLowerCase()) || c.zone.toLowerCase().includes(search.toLowerCase())
@@ -93,16 +120,27 @@ const Seances = () => {
                   </SelectContent>
                 </Select>
               </div>
+              <div>
+                <label className="text-sm font-medium text-dashboard-card-foreground mb-1 block">Cible *</label>
+                <Select>
+                  <SelectTrigger className="bg-dashboard-card border-dashboard-border text-dashboard-card-foreground">
+                    <SelectValue placeholder="Sélectionner une cible" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {cibles.map((c) => <SelectItem key={c} value={c}>{c}</SelectItem>)}
+                  </SelectContent>
+                </Select>
+              </div>
               <div className="md:col-span-2">
-                <label className="text-sm font-medium text-dashboard-card-foreground mb-1 block">Objectifs *</label>
-                <textarea className="w-full rounded-md border border-dashboard-border bg-dashboard-card text-dashboard-card-foreground px-3 py-2 text-sm min-h-[80px]" placeholder="Décrire les objectifs de la séance..." />
+                <label className="text-sm font-medium text-dashboard-card-foreground mb-1 block">Motif *</label>
+                <textarea className="w-full rounded-md border border-dashboard-border bg-dashboard-card text-dashboard-card-foreground px-3 py-2 text-sm min-h-[80px]" placeholder="Décrire le motif de la séance..." />
               </div>
             </div>
           </div>
 
           {/* Bloc 2: Planification */}
           <div>
-            <h4 className="text-sm font-semibold text-primary mb-3">Planification</h4>
+            <h4 className="text-sm font-semibold text-primary mb-3">Planification & Équipe</h4>
             <div className="grid md:grid-cols-2 gap-4">
               <div>
                 <label className="text-sm font-medium text-dashboard-card-foreground mb-1 block">Objectif participants *</label>
@@ -112,7 +150,44 @@ const Seances = () => {
                 <label className="text-sm font-medium text-dashboard-card-foreground mb-1 block">Organisateur</label>
                 <Input placeholder="Nom de l'organisateur" className="bg-dashboard-card border-dashboard-border text-dashboard-card-foreground" />
               </div>
+              <div>
+                <label className="text-sm font-medium text-dashboard-card-foreground mb-1 block">Présentateur *</label>
+                <Input placeholder="Nom du présentateur" className="bg-dashboard-card border-dashboard-border text-dashboard-card-foreground" />
+              </div>
+              <div>
+                <label className="text-sm font-medium text-dashboard-card-foreground mb-1 block">Nombre d'assistants</label>
+                <Input
+                  type="number"
+                  min={0}
+                  max={20}
+                  value={nbAssistants}
+                  onChange={(e) => handleNbAssistantsChange(e.target.value)}
+                  placeholder="Ex: 3"
+                  className="bg-dashboard-card border-dashboard-border text-dashboard-card-foreground"
+                />
+              </div>
             </div>
+            {nbAssistants > 0 && (
+              <div className="mt-4 grid md:grid-cols-2 gap-3">
+                {assistants.map((val, i) => (
+                  <div key={i}>
+                    <label className="text-sm font-medium text-dashboard-card-foreground mb-1 block">
+                      Assistant {i + 1}
+                    </label>
+                    <Input
+                      placeholder={`Nom de l'assistant ${i + 1}`}
+                      value={val}
+                      onChange={(e) => {
+                        const next = [...assistants];
+                        next[i] = e.target.value;
+                        setAssistants(next);
+                      }}
+                      className="bg-dashboard-card border-dashboard-border text-dashboard-card-foreground"
+                    />
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
 
           {/* Bloc 3: Date et Heures */}
@@ -227,10 +302,13 @@ const Seances = () => {
             <thead>
               <tr className="border-b border-dashboard-border text-dashboard-card-foreground/50">
                 <th className="text-left py-3 px-2 font-medium">Nom</th>
-                <th className="text-left py-3 px-2 font-medium">Objectifs</th>
+                <th className="text-left py-3 px-2 font-medium">Motif</th>
+                <th className="text-left py-3 px-2 font-medium">Cible</th>
                 <th className="text-left py-3 px-2 font-medium">Zone</th>
                 <th className="text-right py-3 px-2 font-medium">Obj. participants</th>
                 <th className="text-left py-3 px-2 font-medium">Organisateur</th>
+                <th className="text-left py-3 px-2 font-medium">Présentateur</th>
+                <th className="text-center py-3 px-2 font-medium">Assistants</th>
                 <th className="text-left py-3 px-2 font-medium">Date prévue</th>
                 <th className="text-left py-3 px-2 font-medium">Début</th>
                 <th className="text-left py-3 px-2 font-medium">Fin</th>
@@ -241,10 +319,13 @@ const Seances = () => {
               {filtered.map((c) => (
                 <tr key={c.id} className="border-b border-dashboard-border/50 hover:bg-dashboard-card/50 transition-colors">
                   <td className="py-3 px-2 text-dashboard-card-foreground font-medium whitespace-nowrap">{c.nom}</td>
-                  <td className="py-3 px-2 text-dashboard-card-foreground/70 text-xs max-w-[200px] truncate">{c.objectifs}</td>
+                  <td className="py-3 px-2 text-dashboard-card-foreground/70 text-xs max-w-[200px] truncate">{c.motif}</td>
+                  <td className="py-3 px-2 text-dashboard-card-foreground/70 text-xs max-w-[180px] truncate">{c.cible}</td>
                   <td className="py-3 px-2 text-dashboard-card-foreground/70">{c.zone}</td>
                   <td className="py-3 px-2 text-right text-dashboard-card-foreground font-semibold">{c.objectifParticipants}</td>
                   <td className="py-3 px-2 text-dashboard-card-foreground/70">{c.organisateur}</td>
+                  <td className="py-3 px-2 text-dashboard-card-foreground/70">{c.presentateur}</td>
+                  <td className="py-3 px-2 text-center text-dashboard-card-foreground/70" title={c.assistants.join(", ")}>{c.assistants.length}</td>
                   <td className="py-3 px-2 text-dashboard-card-foreground/70 whitespace-nowrap">{c.datePrevue}</td>
                   <td className="py-3 px-2 text-dashboard-card-foreground/70">{c.heureDebut}</td>
                   <td className="py-3 px-2 text-dashboard-card-foreground/70">{c.heureFin}</td>
