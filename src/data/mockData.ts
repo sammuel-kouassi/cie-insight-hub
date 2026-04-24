@@ -30,6 +30,84 @@ export const participantsByType = [
   { name: "Autres", value: 5, fill: "hsl(220, 10%, 46%)" },
 ];
 
+// Répartition par cible (typologies métier de séances)
+export const participantsByCible = [
+  { name: "Quartiers non structurés", value: 22, fill: "hsl(24, 100%, 50%)" },
+  { name: "Quartiers Structurés", value: 18, fill: "hsl(152, 60%, 45%)" },
+  { name: "Groupes Ordonnés & Associations", value: 12, fill: "hsl(210, 100%, 56%)" },
+  { name: "Collectivités Territoriales", value: 10, fill: "hsl(280, 60%, 55%)" },
+  { name: "Administrations Pub. & Privées", value: 14, fill: "hsl(38, 92%, 50%)" },
+  { name: "Structures CIE / SODECI", value: 8, fill: "hsl(152, 60%, 35%)" },
+  { name: "Lieux de Cultes", value: 6, fill: "hsl(0, 70%, 55%)" },
+  { name: "Lieux publics (Marchés, Gares)", value: 10, fill: "hsl(190, 70%, 45%)" },
+];
+
+// Évolution des séances par trimestre
+export const seancesT1 = [
+  { mois: "Janvier", seances: 8 },
+  { mois: "Février", seances: 12 },
+  { mois: "Mars", seances: 15 },
+];
+export const seancesT2 = [
+  { mois: "Avril", seances: 10 },
+  { mois: "Mai", seances: 18 },
+  { mois: "Juin", seances: 22 },
+];
+export const seancesT3 = [
+  { mois: "Juillet", seances: 14 },
+  { mois: "Août", seances: 9 },
+  { mois: "Septembre", seances: 17 },
+];
+export const seancesT4 = [
+  { mois: "Octobre", seances: 25 },
+  { mois: "Novembre", seances: 21 },
+  { mois: "Décembre", seances: 16 },
+];
+
+// Évolution des participants par trimestre
+export const participantsT1 = [
+  { mois: "Janvier", participants: 320 },
+  { mois: "Février", participants: 480 },
+  { mois: "Mars", participants: 560 },
+];
+export const participantsT2 = [
+  { mois: "Avril", participants: 420 },
+  { mois: "Mai", participants: 680 },
+  { mois: "Juin", participants: 750 },
+];
+export const participantsT3 = [
+  { mois: "Juillet", participants: 620 },
+  { mois: "Août", participants: 530 },
+  { mois: "Septembre", participants: 710 },
+];
+export const participantsT4 = [
+  { mois: "Octobre", participants: 890 },
+  { mois: "Novembre", participants: 820 },
+  { mois: "Décembre", participants: 640 },
+];
+
+// Nombre de séances par zone
+export const seancesByZone = [
+  { zone: "Abidjan", seances: 32, fill: "hsl(152, 60%, 45%)" },
+  { zone: "Bouaké", seances: 18, fill: "hsl(24, 100%, 50%)" },
+  { zone: "Yamoussoukro", seances: 12, fill: "hsl(38, 92%, 50%)" },
+  { zone: "San Pedro", seances: 9, fill: "hsl(152, 60%, 35%)" },
+  { zone: "Korhogo", seances: 7, fill: "hsl(210, 100%, 56%)" },
+  { zone: "Daloa", seances: 6, fill: "hsl(280, 60%, 55%)" },
+];
+
+// Nombre de séances par cible
+export const seancesByCible = [
+  { cible: "Quartiers non structurés", seances: 24, fill: "hsl(24, 100%, 50%)" },
+  { cible: "Quartiers Structurés", seances: 19, fill: "hsl(152, 60%, 45%)" },
+  { cible: "Groupes Ordonnés", seances: 13, fill: "hsl(210, 100%, 56%)" },
+  { cible: "Collectivités Territoriales", seances: 11, fill: "hsl(280, 60%, 55%)" },
+  { cible: "Administrations", seances: 15, fill: "hsl(38, 92%, 50%)" },
+  { cible: "Structures CIE/SODECI", seances: 9, fill: "hsl(152, 60%, 35%)" },
+  { cible: "Lieux de Cultes", seances: 7, fill: "hsl(0, 70%, 55%)" },
+  { cible: "Lieux publics", seances: 12, fill: "hsl(190, 70%, 45%)" },
+];
+
 export const recentCampaigns = [
   { id: 1, nom: "Sensibilisation Abobo", typeSeance: "Sensibilisation", motif: "Sensibiliser sur la sécurité électrique", cible: "Quartiers non structurés", zone: "Abidjan", objectifParticipants: 200, organisateur: "Kouamé A.", presentateur: "Diallo M.", assistants: ["Konan E.", "Adjoua P."], datePrevue: "2025-01-15", heureDebut: "08:00", heureFin: "12:00", statut: "Terminée" },
   { id: 2, nom: "Campagne Bouaké Centre", typeSeance: "Information", motif: "Économie d'énergie et branchements", cible: "Lieux publics (Marchés, Gares)", zone: "Bouaké", objectifParticipants: 150, organisateur: "Traoré M.", presentateur: "Ouédraogo S.", assistants: ["Koffi L."], datePrevue: "2025-01-18", heureDebut: "09:00", heureFin: "13:00", statut: "En cours" },

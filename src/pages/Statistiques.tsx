@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { BarChart3 } from "lucide-react";
+import { BarChart3, TrendingUp, MapPin, Target } from "lucide-react";
 import {
   BarChart, Bar, AreaChart, Area,
   XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend,
@@ -7,8 +7,50 @@ import {
 import {
   conversionFunnel, performanceByAgent, monthlyParticipants,
   participantsByRegion, contactsByResult,
+  seancesT1, seancesT2, seancesT3, seancesT4,
+  participantsT1, participantsT2, participantsT3, participantsT4,
+  seancesByZone, seancesByCible,
 } from "@/data/mockData";
 import { PieChart, Pie, Cell } from "recharts";
+
+const tooltipStyle = { background: "#fff", border: "1px solid hsl(220, 13%, 91%)", borderRadius: 8, color: "hsl(220, 20%, 14%)" };
+const axisTick = { fill: "hsl(220, 10%, 55%)", fontSize: 11 };
+
+const TrimSeancesCard = ({ title, data, delay }: { title: string; data: { mois: string; seances: number }[]; delay: number }) => (
+  <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay }} className="glass-card rounded-xl p-5">
+    <h3 className="text-sm font-semibold text-dashboard-card-foreground mb-4" style={{ fontFamily: "Outfit" }}>{title}</h3>
+    <ResponsiveContainer width="100%" height={200}>
+      <BarChart data={data}>
+        <CartesianGrid strokeDasharray="3 3" stroke="hsla(220, 13%, 91%, 0.8)" />
+        <XAxis dataKey="mois" tick={axisTick} axisLine={false} />
+        <YAxis tick={axisTick} axisLine={false} />
+        <Tooltip contentStyle={tooltipStyle} />
+        <Bar dataKey="seances" fill="hsl(24, 100%, 50%)" radius={[6, 6, 0, 0]} name="Séances" />
+      </BarChart>
+    </ResponsiveContainer>
+  </motion.div>
+);
+
+const TrimParticipantsCard = ({ title, data, delay, gradId }: { title: string; data: { mois: string; participants: number }[]; delay: number; gradId: string }) => (
+  <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay }} className="glass-card rounded-xl p-5">
+    <h3 className="text-sm font-semibold text-dashboard-card-foreground mb-4" style={{ fontFamily: "Outfit" }}>{title}</h3>
+    <ResponsiveContainer width="100%" height={200}>
+      <AreaChart data={data}>
+        <defs>
+          <linearGradient id={gradId} x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stopColor="hsl(152, 60%, 45%)" stopOpacity={0.4} />
+            <stop offset="100%" stopColor="hsl(152, 60%, 45%)" stopOpacity={0} />
+          </linearGradient>
+        </defs>
+        <CartesianGrid strokeDasharray="3 3" stroke="hsla(220, 13%, 91%, 0.8)" />
+        <XAxis dataKey="mois" tick={axisTick} axisLine={false} />
+        <YAxis tick={axisTick} axisLine={false} />
+        <Tooltip contentStyle={tooltipStyle} />
+        <Area type="monotone" dataKey="participants" stroke="hsl(152, 60%, 45%)" fill={`url(#${gradId})`} strokeWidth={2} />
+      </AreaChart>
+    </ResponsiveContainer>
+  </motion.div>
+);
 
 const Statistiques = () => {
   return (
@@ -128,6 +170,97 @@ const Statistiques = () => {
           </div>
         </motion.div>
       </div>
+
+      {/* ── Évolution des Séances par Trimestre ── */}
+      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.65 }}>
+        <h2 className="text-lg font-bold text-dashboard-card-foreground mb-3 flex items-center gap-2" style={{ fontFamily: "Outfit" }}>
+          <TrendingUp className="w-5 h-5 text-primary" />
+          Évolution des Séances par Trimestre
+        </h2>
+        <div className="grid md:grid-cols-2 gap-4">
+          <TrimSeancesCard title="1ᵉʳ Trimestre (Jan, Fév, Mar)" data={seancesT1} delay={0.7} />
+          <TrimSeancesCard title="2ᵉ Trimestre (Avr, Mai, Jun)" data={seancesT2} delay={0.75} />
+          <TrimSeancesCard title="3ᵉ Trimestre (Jul, Aoû, Sep)" data={seancesT3} delay={0.8} />
+          <TrimSeancesCard title="4ᵉ Trimestre (Oct, Nov, Déc)" data={seancesT4} delay={0.85} />
+        </div>
+      </motion.div>
+
+      {/* ── Évolution des Participants par Trimestre ── */}
+      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.9 }}>
+        <h2 className="text-lg font-bold text-dashboard-card-foreground mb-3 flex items-center gap-2" style={{ fontFamily: "Outfit" }}>
+          <TrendingUp className="w-5 h-5 text-secondary" />
+          Évolution des Participants par Trimestre
+        </h2>
+        <div className="grid md:grid-cols-2 gap-4">
+          <TrimParticipantsCard title="1ᵉʳ Trimestre (Jan, Fév, Mar)" data={participantsT1} delay={0.95} gradId="gradPartT1" />
+          <TrimParticipantsCard title="2ᵉ Trimestre (Avr, Mai, Jun)" data={participantsT2} delay={1.0} gradId="gradPartT2" />
+          <TrimParticipantsCard title="3ᵉ Trimestre (Jul, Aoû, Sep)" data={participantsT3} delay={1.05} gradId="gradPartT3" />
+          <TrimParticipantsCard title="4ᵉ Trimestre (Oct, Nov, Déc)" data={participantsT4} delay={1.1} gradId="gradPartT4" />
+        </div>
+      </motion.div>
+
+      {/* ── Séances et Participants par Zone et Cible ── */}
+      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.15 }}>
+        <h2 className="text-lg font-bold text-dashboard-card-foreground mb-3 flex items-center gap-2" style={{ fontFamily: "Outfit" }}>
+          <Target className="w-5 h-5 text-primary" />
+          Séances et Participations par Zone et Cible
+        </h2>
+        <div className="grid lg:grid-cols-2 gap-4">
+          {/* Séances par zone */}
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1.2 }} className="glass-card rounded-xl p-5">
+            <h3 className="text-sm font-semibold text-dashboard-card-foreground mb-4 flex items-center gap-2" style={{ fontFamily: "Outfit" }}>
+              <MapPin className="w-4 h-4 text-primary" /> Nombre de séances par Zone
+            </h3>
+            <ResponsiveContainer width="100%" height={260}>
+              <BarChart data={seancesByZone} layout="vertical">
+                <CartesianGrid strokeDasharray="3 3" stroke="hsla(220, 13%, 91%, 0.8)" />
+                <XAxis type="number" tick={axisTick} axisLine={false} />
+                <YAxis dataKey="zone" type="category" tick={axisTick} axisLine={false} width={100} />
+                <Tooltip contentStyle={tooltipStyle} />
+                <Bar dataKey="seances" radius={[0, 6, 6, 0]}>
+                  {seancesByZone.map((e, i) => <Cell key={i} fill={e.fill} />)}
+                </Bar>
+              </BarChart>
+            </ResponsiveContainer>
+          </motion.div>
+
+          {/* Participants par zone */}
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1.25 }} className="glass-card rounded-xl p-5">
+            <h3 className="text-sm font-semibold text-dashboard-card-foreground mb-4 flex items-center gap-2" style={{ fontFamily: "Outfit" }}>
+              <MapPin className="w-4 h-4 text-secondary" /> Nombre de participants par Zone
+            </h3>
+            <ResponsiveContainer width="100%" height={260}>
+              <BarChart data={participantsByRegion} layout="vertical">
+                <CartesianGrid strokeDasharray="3 3" stroke="hsla(220, 13%, 91%, 0.8)" />
+                <XAxis type="number" tick={axisTick} axisLine={false} />
+                <YAxis dataKey="region" type="category" tick={axisTick} axisLine={false} width={100} />
+                <Tooltip contentStyle={tooltipStyle} />
+                <Bar dataKey="participants" radius={[0, 6, 6, 0]}>
+                  {participantsByRegion.map((e, i) => <Cell key={i} fill={e.fill} />)}
+                </Bar>
+              </BarChart>
+            </ResponsiveContainer>
+          </motion.div>
+        </div>
+
+        {/* Séances par cible (full width) */}
+        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1.3 }} className="glass-card rounded-xl p-5 mt-4">
+          <h3 className="text-sm font-semibold text-dashboard-card-foreground mb-4 flex items-center gap-2" style={{ fontFamily: "Outfit" }}>
+            <Target className="w-4 h-4 text-primary" /> Nombre de séances par Cible
+          </h3>
+          <ResponsiveContainer width="100%" height={320}>
+            <BarChart data={seancesByCible} layout="vertical" margin={{ left: 20 }}>
+              <CartesianGrid strokeDasharray="3 3" stroke="hsla(220, 13%, 91%, 0.8)" />
+              <XAxis type="number" tick={axisTick} axisLine={false} />
+              <YAxis dataKey="cible" type="category" tick={{ ...axisTick, fontSize: 10 }} axisLine={false} width={170} />
+              <Tooltip contentStyle={tooltipStyle} />
+              <Bar dataKey="seances" radius={[0, 6, 6, 0]}>
+                {seancesByCible.map((e, i) => <Cell key={i} fill={e.fill} />)}
+              </Bar>
+            </BarChart>
+          </ResponsiveContainer>
+        </motion.div>
+      </motion.div>
     </div>
   );
 };
