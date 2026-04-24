@@ -8,7 +8,7 @@ import KpiCard from "@/components/KpiCard";
 import {
   monthlyParticipants,
   participantsByRegion,
-  participantsByType,
+  participantsByCible,
   recentCampaigns,
 } from "@/data/mockData";
 
@@ -85,26 +85,26 @@ const Dashboard = () => {
           className="glass-card rounded-xl p-5"
         >
           <h3 className="text-sm font-semibold text-dashboard-card-foreground mb-4" style={{ fontFamily: 'Outfit' }}>
-            Répartition par Typologie
+            Répartition par Cible
           </h3>
           <ResponsiveContainer width="100%" height={220}>
             <PieChart>
-              <Pie data={participantsByType} dataKey="value" nameKey="name" cx="50%" cy="50%" innerRadius={50} outerRadius={80} paddingAngle={3}>
-                {participantsByType.map((entry, i) => (
+              <Pie data={participantsByCible} dataKey="value" nameKey="name" cx="50%" cy="50%" innerRadius={50} outerRadius={80} paddingAngle={3}>
+                {participantsByCible.map((entry, i) => (
                   <Cell key={i} fill={entry.fill} />
                 ))}
               </Pie>
               <Tooltip contentStyle={{ background: '#fff', border: '1px solid hsl(220, 13%, 91%)', borderRadius: 8, color: 'hsl(220, 20%, 14%)' }} />
             </PieChart>
           </ResponsiveContainer>
-          <div className="space-y-1.5 mt-2">
-            {participantsByType.map((t) => (
+          <div className="space-y-1.5 mt-2 max-h-40 overflow-y-auto">
+            {participantsByCible.map((t) => (
               <div key={t.name} className="flex items-center justify-between text-xs">
-                <div className="flex items-center gap-2">
-                  <div className="w-2.5 h-2.5 rounded-full" style={{ background: t.fill }} />
-                  <span className="text-dashboard-card-foreground/70">{t.name}</span>
+                <div className="flex items-center gap-2 min-w-0">
+                  <div className="w-2.5 h-2.5 rounded-full shrink-0" style={{ background: t.fill }} />
+                  <span className="text-dashboard-card-foreground/70 truncate">{t.name}</span>
                 </div>
-                <span className="font-semibold text-dashboard-card-foreground">{t.value}%</span>
+                <span className="font-semibold text-dashboard-card-foreground shrink-0 ml-2">{t.value}%</span>
               </div>
             ))}
           </div>
