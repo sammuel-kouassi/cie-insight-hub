@@ -120,16 +120,27 @@ const Seances = () => {
                   </SelectContent>
                 </Select>
               </div>
+              <div>
+                <label className="text-sm font-medium text-dashboard-card-foreground mb-1 block">Cible *</label>
+                <Select>
+                  <SelectTrigger className="bg-dashboard-card border-dashboard-border text-dashboard-card-foreground">
+                    <SelectValue placeholder="Sélectionner une cible" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {cibles.map((c) => <SelectItem key={c} value={c}>{c}</SelectItem>)}
+                  </SelectContent>
+                </Select>
+              </div>
               <div className="md:col-span-2">
-                <label className="text-sm font-medium text-dashboard-card-foreground mb-1 block">Objectifs *</label>
-                <textarea className="w-full rounded-md border border-dashboard-border bg-dashboard-card text-dashboard-card-foreground px-3 py-2 text-sm min-h-[80px]" placeholder="Décrire les objectifs de la séance..." />
+                <label className="text-sm font-medium text-dashboard-card-foreground mb-1 block">Motif *</label>
+                <textarea className="w-full rounded-md border border-dashboard-border bg-dashboard-card text-dashboard-card-foreground px-3 py-2 text-sm min-h-[80px]" placeholder="Décrire le motif de la séance..." />
               </div>
             </div>
           </div>
 
           {/* Bloc 2: Planification */}
           <div>
-            <h4 className="text-sm font-semibold text-primary mb-3">Planification</h4>
+            <h4 className="text-sm font-semibold text-primary mb-3">Planification & Équipe</h4>
             <div className="grid md:grid-cols-2 gap-4">
               <div>
                 <label className="text-sm font-medium text-dashboard-card-foreground mb-1 block">Objectif participants *</label>
@@ -139,7 +150,44 @@ const Seances = () => {
                 <label className="text-sm font-medium text-dashboard-card-foreground mb-1 block">Organisateur</label>
                 <Input placeholder="Nom de l'organisateur" className="bg-dashboard-card border-dashboard-border text-dashboard-card-foreground" />
               </div>
+              <div>
+                <label className="text-sm font-medium text-dashboard-card-foreground mb-1 block">Présentateur *</label>
+                <Input placeholder="Nom du présentateur" className="bg-dashboard-card border-dashboard-border text-dashboard-card-foreground" />
+              </div>
+              <div>
+                <label className="text-sm font-medium text-dashboard-card-foreground mb-1 block">Nombre d'assistants</label>
+                <Input
+                  type="number"
+                  min={0}
+                  max={20}
+                  value={nbAssistants}
+                  onChange={(e) => handleNbAssistantsChange(e.target.value)}
+                  placeholder="Ex: 3"
+                  className="bg-dashboard-card border-dashboard-border text-dashboard-card-foreground"
+                />
+              </div>
             </div>
+            {nbAssistants > 0 && (
+              <div className="mt-4 grid md:grid-cols-2 gap-3">
+                {assistants.map((val, i) => (
+                  <div key={i}>
+                    <label className="text-sm font-medium text-dashboard-card-foreground mb-1 block">
+                      Assistant {i + 1}
+                    </label>
+                    <Input
+                      placeholder={`Nom de l'assistant ${i + 1}`}
+                      value={val}
+                      onChange={(e) => {
+                        const next = [...assistants];
+                        next[i] = e.target.value;
+                        setAssistants(next);
+                      }}
+                      className="bg-dashboard-card border-dashboard-border text-dashboard-card-foreground"
+                    />
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
 
           {/* Bloc 3: Date et Heures */}
