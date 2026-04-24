@@ -34,6 +34,22 @@ const Seances = () => {
   const [logistiqueItems, setLogistiqueItems] = useState<{ nom: string; cout: number }[]>([]);
   const [newItem, setNewItem] = useState("");
   const [newItemCout, setNewItemCout] = useState("");
+  const [nbAssistants, setNbAssistants] = useState(0);
+  const [assistants, setAssistants] = useState<string[]>([]);
+
+  const handleNbAssistantsChange = (value: string) => {
+    const n = Math.max(0, Math.min(20, Number(value) || 0));
+    setNbAssistants(n);
+    setAssistants((prev) => {
+      const next = [...prev];
+      if (n > prev.length) {
+        for (let i = prev.length; i < n; i++) next.push("");
+      } else {
+        next.length = n;
+      }
+      return next;
+    });
+  };
 
   const filtered = recentCampaigns.filter(
     (c) => c.nom.toLowerCase().includes(search.toLowerCase()) || c.zone.toLowerCase().includes(search.toLowerCase())
