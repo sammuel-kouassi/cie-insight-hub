@@ -31,11 +31,11 @@ export const participantsByType = [
 ];
 
 export const recentCampaigns = [
-  { id: 1, nom: "Sensibilisation Abobo", objectifs: "Sensibiliser sur la sécurité électrique", zone: "Abidjan", objectifParticipants: 200, organisateur: "Kouamé A.", datePrevue: "2025-01-15", heureDebut: "08:00", heureFin: "12:00", statut: "Terminée" },
-  { id: 2, nom: "Campagne Bouaké Centre", objectifs: "Économie d'énergie et branchements", zone: "Bouaké", objectifParticipants: 150, organisateur: "Traoré M.", datePrevue: "2025-01-18", heureDebut: "09:00", heureFin: "13:00", statut: "En cours" },
-  { id: 3, nom: "Mission Yopougon", objectifs: "Lutte contre les branchements illicites", zone: "Abidjan", objectifParticipants: 250, organisateur: "Bamba K.", datePrevue: "2025-01-20", heureDebut: "07:30", heureFin: "11:30", statut: "Terminée" },
-  { id: 4, nom: "Sensibilisation Korhogo", objectifs: "Droits et devoirs du client", zone: "Korhogo", objectifParticipants: 100, organisateur: "Coulibaly S.", datePrevue: "2025-02-05", heureDebut: "08:00", heureFin: "12:00", statut: "Planifiée" },
-  { id: 5, nom: "Campagne San Pedro", objectifs: "Facturation et paiement", zone: "San Pedro", objectifParticipants: 180, organisateur: "Yao F.", datePrevue: "2025-01-25", heureDebut: "09:00", heureFin: "14:00", statut: "En cours" },
+  { id: 1, nom: "Sensibilisation Abobo", motif: "Sensibiliser sur la sécurité électrique", cible: "Quartiers non structurés", zone: "Abidjan", objectifParticipants: 200, organisateur: "Kouamé A.", presentateur: "Diallo M.", assistants: ["Konan E.", "Adjoua P."], datePrevue: "2025-01-15", heureDebut: "08:00", heureFin: "12:00", statut: "Terminée" },
+  { id: 2, nom: "Campagne Bouaké Centre", motif: "Économie d'énergie et branchements", cible: "Lieux publics (Marchés, Gares)", zone: "Bouaké", objectifParticipants: 150, organisateur: "Traoré M.", presentateur: "Ouédraogo S.", assistants: ["Koffi L."], datePrevue: "2025-01-18", heureDebut: "09:00", heureFin: "13:00", statut: "En cours" },
+  { id: 3, nom: "Mission Yopougon", motif: "Lutte contre les branchements illicites", cible: "Quartiers Structurés", zone: "Abidjan", objectifParticipants: 250, organisateur: "Bamba K.", presentateur: "Aka R.", assistants: ["Yapi G.", "Tano M.", "Brou C."], datePrevue: "2025-01-20", heureDebut: "07:30", heureFin: "11:30", statut: "Terminée" },
+  { id: 4, nom: "Sensibilisation Korhogo", motif: "Droits et devoirs du client", cible: "Collectivités Territoriales", zone: "Korhogo", objectifParticipants: 100, organisateur: "Coulibaly S.", presentateur: "Soro K.", assistants: ["Doumbia F."], datePrevue: "2025-02-05", heureDebut: "08:00", heureFin: "12:00", statut: "Planifiée" },
+  { id: 5, nom: "Campagne San Pedro", motif: "Facturation et paiement", cible: "Administrations Publics et Privées", zone: "San Pedro", objectifParticipants: 180, organisateur: "Yao F.", presentateur: "Gbagbo A.", assistants: ["Niamké P.", "Beugré J."], datePrevue: "2025-01-25", heureDebut: "09:00", heureFin: "14:00", statut: "En cours" },
 ];
 
 export const gadgetDistribution = [
