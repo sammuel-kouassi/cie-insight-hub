@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { BarChart3 } from "lucide-react";
+import { BarChart3, TrendingUp, MapPin, Target } from "lucide-react";
 import {
   BarChart, Bar, AreaChart, Area,
   XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend,
@@ -7,8 +7,50 @@ import {
 import {
   conversionFunnel, performanceByAgent, monthlyParticipants,
   participantsByRegion, contactsByResult,
+  seancesT1, seancesT2, seancesT3, seancesT4,
+  participantsT1, participantsT2, participantsT3, participantsT4,
+  seancesByZone, seancesByCible,
 } from "@/data/mockData";
 import { PieChart, Pie, Cell } from "recharts";
+
+const tooltipStyle = { background: "#fff", border: "1px solid hsl(220, 13%, 91%)", borderRadius: 8, color: "hsl(220, 20%, 14%)" };
+const axisTick = { fill: "hsl(220, 10%, 55%)", fontSize: 11 };
+
+const TrimSeancesCard = ({ title, data, delay }: { title: string; data: { mois: string; seances: number }[]; delay: number }) => (
+  <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay }} className="glass-card rounded-xl p-5">
+    <h3 className="text-sm font-semibold text-dashboard-card-foreground mb-4" style={{ fontFamily: "Outfit" }}>{title}</h3>
+    <ResponsiveContainer width="100%" height={200}>
+      <BarChart data={data}>
+        <CartesianGrid strokeDasharray="3 3" stroke="hsla(220, 13%, 91%, 0.8)" />
+        <XAxis dataKey="mois" tick={axisTick} axisLine={false} />
+        <YAxis tick={axisTick} axisLine={false} />
+        <Tooltip contentStyle={tooltipStyle} />
+        <Bar dataKey="seances" fill="hsl(24, 100%, 50%)" radius={[6, 6, 0, 0]} name="Séances" />
+      </BarChart>
+    </ResponsiveContainer>
+  </motion.div>
+);
+
+const TrimParticipantsCard = ({ title, data, delay, gradId }: { title: string; data: { mois: string; participants: number }[]; delay: number; gradId: string }) => (
+  <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay }} className="glass-card rounded-xl p-5">
+    <h3 className="text-sm font-semibold text-dashboard-card-foreground mb-4" style={{ fontFamily: "Outfit" }}>{title}</h3>
+    <ResponsiveContainer width="100%" height={200}>
+      <AreaChart data={data}>
+        <defs>
+          <linearGradient id={gradId} x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stopColor="hsl(152, 60%, 45%)" stopOpacity={0.4} />
+            <stop offset="100%" stopColor="hsl(152, 60%, 45%)" stopOpacity={0} />
+          </linearGradient>
+        </defs>
+        <CartesianGrid strokeDasharray="3 3" stroke="hsla(220, 13%, 91%, 0.8)" />
+        <XAxis dataKey="mois" tick={axisTick} axisLine={false} />
+        <YAxis tick={axisTick} axisLine={false} />
+        <Tooltip contentStyle={tooltipStyle} />
+        <Area type="monotone" dataKey="participants" stroke="hsl(152, 60%, 45%)" fill={`url(#${gradId})`} strokeWidth={2} />
+      </AreaChart>
+    </ResponsiveContainer>
+  </motion.div>
+);
 
 const Statistiques = () => {
   return (
