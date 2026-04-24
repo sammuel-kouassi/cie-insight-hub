@@ -17,6 +17,8 @@ const statusColor: Record<string, string> = {
 
 const zones = ["Abidjan", "Bouaké", "Yamoussoukro", "San Pedro", "Korhogo", "Daloa", "Man", "Gagnoa", "Abengourou"];
 
+const typesSeance = ["Sensibilisation", "Formation", "Information", "Consultation publique"];
+
 const cibles = [
   "Quartiers non structurés (ou quartiers péri urbain)",
   "Quartiers Structurés",
