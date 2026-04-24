@@ -302,10 +302,13 @@ const Seances = () => {
             <thead>
               <tr className="border-b border-dashboard-border text-dashboard-card-foreground/50">
                 <th className="text-left py-3 px-2 font-medium">Nom</th>
-                <th className="text-left py-3 px-2 font-medium">Objectifs</th>
+                <th className="text-left py-3 px-2 font-medium">Motif</th>
+                <th className="text-left py-3 px-2 font-medium">Cible</th>
                 <th className="text-left py-3 px-2 font-medium">Zone</th>
                 <th className="text-right py-3 px-2 font-medium">Obj. participants</th>
                 <th className="text-left py-3 px-2 font-medium">Organisateur</th>
+                <th className="text-left py-3 px-2 font-medium">Présentateur</th>
+                <th className="text-center py-3 px-2 font-medium">Assistants</th>
                 <th className="text-left py-3 px-2 font-medium">Date prévue</th>
                 <th className="text-left py-3 px-2 font-medium">Début</th>
                 <th className="text-left py-3 px-2 font-medium">Fin</th>
@@ -316,10 +319,13 @@ const Seances = () => {
               {filtered.map((c) => (
                 <tr key={c.id} className="border-b border-dashboard-border/50 hover:bg-dashboard-card/50 transition-colors">
                   <td className="py-3 px-2 text-dashboard-card-foreground font-medium whitespace-nowrap">{c.nom}</td>
-                  <td className="py-3 px-2 text-dashboard-card-foreground/70 text-xs max-w-[200px] truncate">{c.objectifs}</td>
+                  <td className="py-3 px-2 text-dashboard-card-foreground/70 text-xs max-w-[200px] truncate">{c.motif}</td>
+                  <td className="py-3 px-2 text-dashboard-card-foreground/70 text-xs max-w-[180px] truncate">{c.cible}</td>
                   <td className="py-3 px-2 text-dashboard-card-foreground/70">{c.zone}</td>
                   <td className="py-3 px-2 text-right text-dashboard-card-foreground font-semibold">{c.objectifParticipants}</td>
                   <td className="py-3 px-2 text-dashboard-card-foreground/70">{c.organisateur}</td>
+                  <td className="py-3 px-2 text-dashboard-card-foreground/70">{c.presentateur}</td>
+                  <td className="py-3 px-2 text-center text-dashboard-card-foreground/70" title={c.assistants.join(", ")}>{c.assistants.length}</td>
                   <td className="py-3 px-2 text-dashboard-card-foreground/70 whitespace-nowrap">{c.datePrevue}</td>
                   <td className="py-3 px-2 text-dashboard-card-foreground/70">{c.heureDebut}</td>
                   <td className="py-3 px-2 text-dashboard-card-foreground/70">{c.heureFin}</td>
